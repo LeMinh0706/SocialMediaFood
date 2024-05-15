@@ -1,3 +1,5 @@
+import { FETCH_USER_LOGIN_SUCCESS } from "../action/useAction";
+
 const INITIAL_STATE = {
     account:{
         access_token: '',
@@ -8,7 +10,7 @@ const INITIAL_STATE = {
 };
 const userReducer = (state = INITIAL_STATE, action) =>{
     switch (action.type) {
-        case 'FETCH_USER_LOGIN_SUCCESS':
+        case FETCH_USER_LOGIN_SUCCESS:
             console.log("Action: ", action);
           return {
             ...state, account:{

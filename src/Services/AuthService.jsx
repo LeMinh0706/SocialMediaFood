@@ -13,4 +13,4 @@ const meProfile = () => {
 }
 
 
-export { postLogin, postRegister }
+export { postLogin, postRegister, meProfile }

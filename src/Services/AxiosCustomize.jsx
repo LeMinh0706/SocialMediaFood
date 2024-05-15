@@ -1,10 +1,22 @@
 import axios from "axios";
+import store from '../redux/store.js'
 
 const instance = axios.create({
-    baseURL: 'http://camenryder.xyz/',
+    baseURL: 'http://foodsocial.camenryder.xyz/',
     timeout: 1000
 });
 
+instance.interceptors.request.use(function (config) {
+    const state = store.getState();
+    const access_Token = state.user.account.accessToken;
+    if (access_Token) {
+        config.headers['Authorization'] = `Bearer ${access_Token}`;
+    }
+    // console.log("Access token: ", access_Token);
+    return config;
+}, function (error) {
+    return Promise.reject(error);
+});
 
 
 instance.interceptors.response.use(function (response) {

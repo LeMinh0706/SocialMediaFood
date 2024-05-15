@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { postLogin } from '../Services/AuthService';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch } from 'react-redux';
+import { doLogin } from '../action/useAction';
 
 function LoginForm() {
 
@@ -31,10 +32,7 @@ function LoginForm() {
         console.log("Check res: ", res);
 
         if (res && res.status === 201) {
-            dispatch({
-                type: 'FETCH_USER_LOGIN_SUCCESS',
-                payload: res.data
-            })
+            dispatch(doLogin(res.data))
             toast.success(res.data.message)
             navigate('/')
         } else {
