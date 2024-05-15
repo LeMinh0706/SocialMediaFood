@@ -9,7 +9,8 @@ function LoginForm() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleemailChange = (event) => {
         setEmail(event.target.value);
@@ -30,6 +31,10 @@ function LoginForm() {
         console.log("Check res: ", res);
 
         if (res && res.status === 201) {
+            dispatch({
+                type: 'FETCH_USER_LOGIN_SUCCESS',
+                payload: res.data
+            })
             toast.success(res.data.message)
             navigate('/')
         } else {
@@ -40,13 +45,13 @@ function LoginForm() {
     return (
         <form className='pt-20 flex flex-col items-center gap-5' onSubmit={handleSubmit}>
             <p className='text-lg font-semibold border-b-2 border-black'>LOGIN</p>
-            <div className='w-1/3' >
+            <div className='w-1/4' >
                 <label className='text-start block' htmlFor='user'>
                     Email:
                 </label>
                 <input id='user' className='w-full text-sm border-violet-500 ml-2 rounded-lg p-2 border-2' type="email" value={email} onChange={handleemailChange} />
             </div>
-            <div className='w-1/3'>
+            <div className='w-1/4'>
                 <label className=' text-start block' htmlFor='pass'>
                     Password:
                 </label>

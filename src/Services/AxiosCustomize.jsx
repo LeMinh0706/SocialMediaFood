@@ -5,6 +5,8 @@ const instance = axios.create({
     timeout: 1000
 });
 
+
+
 instance.interceptors.response.use(function (response) {
     console.log("itercepter: ", response);
 

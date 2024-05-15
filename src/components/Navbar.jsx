@@ -4,21 +4,19 @@ import { Link } from 'react-router-dom'
 
 const Navbar = () => {
     return (
-        <div className="relative" >
-            <div className="flex bg-white flex-col justify-center items-center p-2 w-full fixed">
-                <nav className="flex flex-col justify-center items-center">
-                    <ul className='flex gap-10'>
-                        {navLink.map((item) => (
-                            <li key={item.id}>
-                                <Link to={item.id}>
-                                    <p>{item.title}</p>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-            </div>
-        </div >
+        <div className='relative'>
+            <nav className='flex justify-center'>
+                <ul className='flex'>
+                    {navLink.map((item) => (
+                        <li className='p-3 hover:underline' key={item.id}>
+                            <Link to={item.id}>
+                                <p>{item.title}</p>
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </div>
     )
 }
 

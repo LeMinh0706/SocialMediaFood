@@ -8,4 +8,9 @@ const postRegister = (userEmail, userPassword, userFullname) => {
     return axios.post(`auth/register`, { email: userEmail, password: userPassword, fullname: userFullname });
 }
 
+const meProfile = () => {
+    return axios.get(`user/me`);
+}
+
+
 export { postLogin, postRegister }
