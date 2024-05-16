@@ -8,12 +8,14 @@ const Home = (props) => {
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
     const account = useSelector(state => state.user.account)
 
+    // console.log("Account data: ", account);
+
     const { data: postData, isLoading, isError, error } = useQuery({
         queryKey: ["Posts"],
         queryFn: fetchPost,
     })
 
-    console.log(postData);
+    // console.log(postData);
 
     console.log("Account:", account.username, "authenthicated:", isAuthenticated);
     return (

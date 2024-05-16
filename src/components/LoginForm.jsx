@@ -29,7 +29,7 @@ function LoginForm() {
 
     const handleLogin = async () => {
         let res = await postLogin(email, password)
-        console.log("Check res: ", res);
+        // console.log("Check res: ", res);
 
         if (res && res.status === 201) {
             dispatch(doLogin(res.data))

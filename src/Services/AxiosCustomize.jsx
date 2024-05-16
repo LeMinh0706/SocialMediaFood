@@ -14,7 +14,7 @@ instance.interceptors.request.use(function (config) {
     if (access_token) {
         config.headers.Authorization = `Bearer ${access_token}`;
     }
-    console.log("Token: ", access_token);
+    // console.log("Token: ", access_token);
     return config;
 }, function (error) {
     return Promise.reject(error);
@@ -22,7 +22,7 @@ instance.interceptors.request.use(function (config) {
 
 
 instance.interceptors.response.use(function (response) {
-    console.log("itercepter: ", response);
+    // console.log("itercepter: ", response);
 
     return response;
 }, function (error) {
