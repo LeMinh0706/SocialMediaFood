@@ -6,13 +6,15 @@ const instance = axios.create({
     timeout: 1000
 });
 
+
+
 instance.interceptors.request.use(function (config) {
-    const state = store.getState();
-    const access_Token = state.user.account.accessToken;
-    if (access_Token) {
-        config.headers['Authorization'] = `Bearer ${access_Token}`;
-    }
     // console.log("Access token: ", access_Token);
+    const access_token = store.getState().user.account.accessToken;
+    if (access_token) {
+        config.headers.Authorization = `Bearer ${access_token}`;
+    }
+    console.log("Token: ", access_token);
     return config;
 }, function (error) {
     return Promise.reject(error);
