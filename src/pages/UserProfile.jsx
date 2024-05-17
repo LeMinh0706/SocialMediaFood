@@ -8,7 +8,7 @@ import Avt from '../components/Avt'
 const UserProfile = () => {
 
     const token = useSelector(state => state.user.account.accessToken)
-    // console.log("Token: ", token);
+    console.log("Token: ", token);
 
     const { data: myData, isLoading, isError, error } = useQuery(
         {
@@ -17,12 +17,15 @@ const UserProfile = () => {
             enabled: !!token,
         }
     );
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>An error occurred: {error.message}</div>;
 
 
+    const Data = myData
     console.log("Data: ", myData)
-    const myFeedData = myData.data;
-    const avtSrc = myFeedData.url_avatar
-    const userName = myFeedData.fullname
+
+    // const myFeedData = myData.data;
+
     // console.log("New data: ", myFeedData);
     // const getDetail = myData.data.Post[0].PostImage[0]
     // console.log("Detail: ", getDetail);
@@ -30,12 +33,12 @@ const UserProfile = () => {
     return (
         <>
             <div className='pt-10 flex items-center flex-col'>User profile:
-                {myFeedData.Post.map((item) => (
+                {Data.data.Post.map((item) => (
                     <div className='w-2/5' key={item.post_id}>
                         <div className='flex items-center gap-5'>
-                            <Avt src={avtSrc}></Avt>
+                            {/* <Avt src={avtSrc}></Avt> */}
                             <div>
-                                <p>{userName}</p>
+                                {/* <p>{userName}</p> */}
                                 <p>{Date(item.date_create_post).toLocaleString('en-US', {
                                     timeZone: 'Asia/Ho_Chi_Minh',
                                     hour12: false,
@@ -51,7 +54,6 @@ const UserProfile = () => {
                             </div>
                         </div>
                         <div>
-
                         </div>
                     </div>
                 ))}

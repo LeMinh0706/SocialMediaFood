@@ -10,12 +10,14 @@ const Home = (props) => {
 
     // console.log("Account data: ", account);
 
-    const { data: postData, isLoading, isError, error } = useQuery({
+    const { data: postData, error, isLoading } = useQuery({
         queryKey: ["Posts"],
         queryFn: fetchPost,
     })
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>An error occurred: {error.message}</div>;
 
-    // console.log(postData);
+    console.log(postData.data);
 
     console.log("Account:", account.username, "authenthicated:", isAuthenticated);
     return (
