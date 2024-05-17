@@ -7,4 +7,11 @@ const doLogin = (data) =>{
     }
 }
 
-export {doLogin, FETCH_USER_LOGIN_SUCCESS};
+const setToken = (token) =>{
+    return {
+        type: 'SET_TOKEN',
+        payload: token,
+    };
+}
+
+export {doLogin, FETCH_USER_LOGIN_SUCCESS, setToken};
