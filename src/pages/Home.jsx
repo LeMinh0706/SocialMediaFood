@@ -2,6 +2,8 @@ import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchPost } from '../Services/Query/api'
 import { useSelector } from 'react-redux'
+import Post from '../components/Post'
+import Search from '../components/Search'
 
 
 const Home = (props) => {
@@ -19,10 +21,20 @@ const Home = (props) => {
 
     console.log(postData.data);
 
-    console.log("Account:", account.username, "authenthicated:", isAuthenticated);
+    // console.log("Account:", account.username, "authenthicated:", isAuthenticated);
     return (
-        <div className='flex justify-center'>
-            <p>Home here</p>
+        <div className='pt-24 flex items-center flex-col gap-5'>
+            {postData.data.map((item) => (
+                <Post key={item.post_id}
+                    avt={item.User.url_avatar}
+                    name={item.User.fullname}
+                    time={item.date_create_post}
+                    description={item.description}
+                    images={item.PostImage.map((iItem) => (
+                        <img className='w-full h-auto' key={item.id} src={iItem.url_image}></img>
+                    ))}
+                />
+            ))}
         </div>
     )
 }

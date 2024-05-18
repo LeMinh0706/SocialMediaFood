@@ -11,6 +11,7 @@ import App from './App.jsx'
 import Home from './pages/Home.jsx'
 import LoginRegister from './pages/LoginRegister.jsx'
 import UserProfile from './pages/UserProfile.jsx'
+import Test from './pages/Test.jsx';
 
 import { navLink } from './constant/navLink.jsx'
 
@@ -29,6 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route index element={<Home />} />
               <Route path='login' element={<LoginRegister />} />
               <Route path='profile' element={<UserProfile />} />
+              <Route path='test' element={<Test />} />
               <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>

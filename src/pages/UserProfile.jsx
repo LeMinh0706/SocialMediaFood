@@ -2,13 +2,15 @@ import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { fetchUserMe } from '../Services/Query/api'
 import { useSelector } from 'react-redux'
-import Avt from '../components/Avt'
-
+import Post from '../components/Post'
 
 const UserProfile = () => {
 
     const token = useSelector(state => state.user.account.accessToken)
-    console.log("Token: ", token);
+    // console.log("Token: ", token);
+    const avtSrc = useSelector(state => state.user.account.avatar)
+    const userName = useSelector(state => state.user.account.username)
+
 
     const { data: myData, isLoading, isError, error } = useQuery(
         {
@@ -22,8 +24,7 @@ const UserProfile = () => {
 
 
     const Data = myData
-    console.log("Data: ", myData)
-
+    // console.log("Data: ", myData)
     // const myFeedData = myData.data;
 
     // console.log("New data: ", myFeedData);
@@ -32,30 +33,17 @@ const UserProfile = () => {
 
     return (
         <>
-            <div className='pt-10 flex items-center flex-col'>User profile:
+            <div className='pt-20 flex items-center flex-col gap-5'>
                 {Data.data.Post.map((item) => (
-                    <div className='w-2/5' key={item.post_id}>
-                        <div className='flex items-center gap-5'>
-                            {/* <Avt src={avtSrc}></Avt> */}
-                            <div>
-                                {/* <p>{userName}</p> */}
-                                <p>{Date(item.date_create_post).toLocaleString('en-US', {
-                                    timeZone: 'Asia/Ho_Chi_Minh',
-                                    hour12: false,
-                                }).replace(/ GMT.*$/, '')}</p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>{item.description}</p>
-                            <div>
-                                {item.PostImage.map((iItem) => (
-                                    <img key={iItem.post_image_id} src={iItem.url_image} alt="" />
-                                ))}
-                            </div>
-                        </div>
-                        <div>
-                        </div>
-                    </div>
+                    <Post key={item.id}
+                        avt={avtSrc}
+                        name={userName}
+                        time={item.date_create_post}
+                        description={item.description}
+                        images={item.PostImage.map((iItem) => (
+                            <img className='w-full h-auto' key={item.id} src={iItem.url_image}></img>
+                        ))}
+                    />
                 ))}
             </div>
         </>
