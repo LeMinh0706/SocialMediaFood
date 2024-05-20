@@ -25,13 +25,15 @@ const Post = ({
   totalLike,
   totalComment,
 }) => {
-  const [liked, setLiked] = useState(false);
-  const [react, setReact] = useState(totalLike);
+
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
   const accessToken = useSelector((state) => state.user.account.access_token);
   const user_id = useSelector((state) => state.user.account.userId);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+  const [liked, setLiked] = useState(false);
+  const [react, setReact] = useState(totalLike);
   const [listComment, setListComment] = useState([]);
   const navigate = useNavigate();
   const handleShowModalComment = async () => {
