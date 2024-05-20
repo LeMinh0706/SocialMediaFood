@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import Avt from './Avt'
+import Dropdown from './Dropdown'
+import { useSelector } from 'react-redux'
 
-const Post = ({ avt, name, time, description, images }) => {
+const Post = (props) => {
+
 
   const [liked, setLiked] = useState(false)
   const [react, setReact] = useState(0)
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated)
 
   const handleLike = () => {
     if (liked) {
@@ -16,35 +20,32 @@ const Post = ({ avt, name, time, description, images }) => {
   }
 
 
-  console.log(liked);
+  // console.log(liked);
 
   return (
-    <div className='w-2/5 rounded-xl bg-white border p-3'>
+    <div className='w-2/5 rounded-xl bg-white border p-3 shadow-md'>
       <div className='flex w-full justify-between border-b p-2 items-center'>
         <div className='flex items-center gap-5'>
-          <Avt src={avt}></Avt>
+          <Avt src={props.avt}></Avt>
           <div>
-            <p className='font-medium'>{name}</p>
-            <p className='text-xs font-lg text-gray-600'>{new Date(Number(time),).toLocaleString('en-US', {
+            <p className='font-medium'>{props.name}</p>
+            <p className='text-xs font-lg text-gray-600'>{new Date(Number(props.time),).toLocaleString('en-US', {
               timeZone: 'Asia/Ho_Chi_Minh',
               hour12: false,
             }).replace(/ GMT.*$/, '')}</p>
           </div>
         </div>
         <div>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-            </svg>
-          </button>
+          {isAuthenticated ? <Dropdown iduser={props.userid} idpost={props.postid} postDetail={props} ></Dropdown> : ""}
+
         </div>
       </div>
       <div>
-        <p className='mt-3'>{description}</p>
-        <div className='mt-3'>
-          {images}
+        <p className='mt-3'>{props.description}</p>
+        <div className='mt-3 flex flex-wrap gap-2'>
+          {props.images}
         </div>
-        <p>{react}</p>
+        <p className='mt-3'>{props.userid}</p>
       </div>
       <div className='flex justify-around border-t mt-3 border-b p-1'>
         <button
