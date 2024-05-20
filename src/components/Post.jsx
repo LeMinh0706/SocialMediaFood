@@ -12,7 +12,7 @@ import {
 } from "../Services/AxiosPost";
 import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // eslint-disable-next-line react/prop-types
 const Post = ({
@@ -37,14 +37,14 @@ const Post = ({
   const [listComment, setListComment] = useState([]);
   const navigate = useNavigate();
   const handleShowModalComment = async () => {
-    if (!isAuthenticated) {
-      navigate("login");
-      toast.warning("Vui lòng đăng nhập để thao tác");
-    } else {
-      const data = await viewCommentsUser(post_id, 1, accessToken);
+    // if (!isAuthenticated) { 
+    //   navigate("login");
+    //   toast.warning("Vui lòng đăng nhập để thao tác");
+    // } else {
+      const data = await viewCommentsUser(post_id, 1);
       setListComment(data["data"]["data"]);
       setShowModal(true);
-    }
+    // }
   };
 
   const fetchData = async () => {

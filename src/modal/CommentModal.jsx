@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export const Modal = ({ show, handleClose, children, onHandleComment }) => {
   const [commentText, setCommentText] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
   if (!show) {
     return null;
@@ -55,37 +56,43 @@ export const Modal = ({ show, handleClose, children, onHandleComment }) => {
             </div>
           </div>
         </div>
-        <div className="border-t p-2 flex items-center">
-          <textarea
-            className="flex-grow p-2 border rounded-md"
-            placeholder="Write a comment..."
-            value={commentText}
-            onChange={handleCommentChange}
-          />
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: "none" }}
-            onChange={handleFileChange}
-          />
-          <button
-            onClick={handlefaPaperclip}
-            className="ml-1 p-2 bg-gray-300 text-white rounded-full shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
-          >
-            <FontAwesomeIcon icon={faPaperclip} className="w-4 h-4" />
-          </button>
-          <button
-            className={`ml-1 p-2 rounded-full shadow-sm focus:outline-none focus:ring-2 ${
-              commentText.trim()
-                ? "bg-blue-500 hover:bg-blue-700 focus:ring-blue-300 text-white"
-                : "bg-gray-300 text-gray-400"
-            }`}
-            disabled={!commentText.trim()}
-            onClick={async () => await handleSendComment()}
-          >
-            <FontAwesomeIcon icon={faPaperPlane} className="w-4 h-4" />
-          </button>
-        </div>
+        {isAuthenticated ? (
+          <>
+            <div className="border-t p-2 flex items-center">
+              <textarea
+                className="flex-grow p-2 border rounded-md"
+                placeholder="Write a comment..."
+                value={commentText}
+                onChange={handleCommentChange}
+              />
+              <input
+                type="file"
+                id="fileInput"
+                style={{ display: "none" }}
+                onChange={handleFileChange}
+              />
+              <button
+                onClick={handlefaPaperclip}
+                className="ml-1 p-2 bg-gray-300 text-white rounded-full shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300"
+              >
+                <FontAwesomeIcon icon={faPaperclip} className="w-4 h-4" />
+              </button>
+              <button
+                className={`ml-1 p-2 rounded-full shadow-sm focus:outline-none focus:ring-2 ${
+                  commentText.trim()
+                    ? "bg-blue-500 hover:bg-blue-700 focus:ring-blue-300 text-white"
+                    : "bg-gray-300 text-gray-400"
+                }`}
+                disabled={!commentText.trim()}
+                onClick={async () => await handleSendComment()}
+              >
+                <FontAwesomeIcon icon={faPaperPlane} className="w-4 h-4" />
+              </button>
+            </div>
+          </>
+        ) : (
+          <> </>
+        )}
       </div>
     </div>
   );

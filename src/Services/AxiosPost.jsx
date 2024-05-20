@@ -80,7 +80,7 @@ const removeReactPost = async (post_id , token ,  user_id) => {
 }
 
 
-const viewCommentsUser = async (post_id, page, token) => {
+const viewCommentsUser = async (post_id, page ) => {
   try {
     const response = await axios.post(
       "http://camenryder.xyz/comment/view-comment-post",
@@ -89,11 +89,11 @@ const viewCommentsUser = async (post_id, page, token) => {
         page_size: 30,
         page: page,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }
     );
     return response.data;
   } catch (error) {
