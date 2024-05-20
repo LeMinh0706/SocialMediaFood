@@ -30,13 +30,13 @@ const Navbar = () => {
                             <Link to='login'>Login</Link>
                         </li>
                         :
-                        <div className='flex items-center gap-10 w-[400px] justify-end'>
+                        <div className='flex items-center gap-2 w-[400px] justify-end'>
                             <li>
                                 <Link to='test'>Test</Link>
                             </li>
                             <li>
                                 <Link to='profile'>
-                                    <div className='flex items-center gap-3'>
+                                    <div className='flex items-center gap-2'>
                                         <p className='text-lg font-medium'>{username}</p>
                                         <img className='h-10' src={avt} alt="" />
                                     </div>

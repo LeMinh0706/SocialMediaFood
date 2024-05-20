@@ -33,9 +33,7 @@ const createPost = async (files, description, token, userId) => {
     for (let i = 0; i < files.length; i++) {
         formData.append('files', files[i]);
     }
-
     // formData.append("files", files)
-
     try {
         const response = await axios.post(
             `post/create-post/${userId}`,

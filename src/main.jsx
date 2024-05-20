@@ -17,6 +17,7 @@ import { navLink } from './constant/navLink.jsx'
 
 import './index.css'
 import NotFound from './pages/NotFound.jsx';
+import SearchPage from './pages/SearchPage.jsx';
 
 const queryClient = new QueryClient()
 
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path='login' element={<LoginRegister />} />
               <Route path='profile' element={<UserProfile />} />
               <Route path='test' element={<Test />} />
+              <Route path='search' element={<SearchPage />} />
               <Route path='*' element={<NotFound />} />
             </Route>
           </Routes>

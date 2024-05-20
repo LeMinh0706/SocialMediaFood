@@ -23,10 +23,6 @@ const userReducer = (state = INITIAL_STATE, action) =>{
             },
             isAuthenticated: true,
           }
-        case SEARCH_USER :
-        return{
-
-        }
         default:
           return state
       }
