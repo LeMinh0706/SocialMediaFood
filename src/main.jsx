@@ -32,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path='profile' element={<UserProfile />} />
               <Route path='test' element={<Test />} />
               <Route path='*' element={<NotFound />} />
+              <Route path='search' element/>
             </Route>
           </Routes>
         </BrowserRouter>

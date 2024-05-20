@@ -1,0 +1,29 @@
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Ensure dropdown is above other elements */
+    max-height: 200px; /* Adjust max-height as needed */
+    overflow-y: auto; /* Enable scrolling if needed */
+    width: 820px; /* Set width to match search input */
+    box-sizing: border-box; /* Ensure width includes padding and 
+border */
+}
+
+.dropdown-content.active{
+    display: block;
+}
+
+/* Style each suggestion item */
+.suggestion {
+    padding: 10px;
+    cursor: pointer;
+}
+    /* Change color of suggestion item on hover */
+.suggestion:hover {
+    background-color: #f4f4f4;
+}
