@@ -59,17 +59,20 @@ const createReactPost = async (post_id, token, user_id) => {
   }
 };
 
-const removeReactPost = async (post_id , token ,  user_id) => {
+const removeReactPost = async (post_id, token, user_id) => {
+  console.log("--------------- ")
+  console.log(post_id)
+  console.log(user_id)
   try {
     const response = await axios.delete(
       "http://camenryder.xyz/react-post/remove-react",
       {
-        post_id: post_id,
-        user_id: user_id,
-      },
-      {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        data: {
+          post_id: post_id,
+          user_id: user_id,
         },
       }
     );
@@ -77,10 +80,9 @@ const removeReactPost = async (post_id , token ,  user_id) => {
   } catch (error) {
     throw new Error("There was an error fetching the data: " + error.message);
   }
-}
+};
 
-
-const viewCommentsUser = async (post_id, page ) => {
+const viewCommentsUser = async (post_id, page) => {
   try {
     const response = await axios.post(
       "http://camenryder.xyz/comment/view-comment-post",
@@ -88,7 +90,7 @@ const viewCommentsUser = async (post_id, page ) => {
         post_id: post_id,
         page_size: 30,
         page: page,
-      },
+      }
       // {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
@@ -154,4 +156,11 @@ const createCommentsUser = async (
     throw new Error("data err?  " + error.message);
   }
 };
-export { createPost, viewCommentsUser, createCommentsUser, deleteCommentsUser , createReactPost , removeReactPost};
+export {
+  createPost,
+  viewCommentsUser,
+  createCommentsUser,
+  deleteCommentsUser,
+  createReactPost,
+  removeReactPost,
+};

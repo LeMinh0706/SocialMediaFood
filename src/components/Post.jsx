@@ -25,7 +25,6 @@ const Post = ({
   totalLike,
   totalComment,
 }) => {
-
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
   const accessToken = useSelector((state) => state.user.account.access_token);
@@ -37,13 +36,13 @@ const Post = ({
   const [listComment, setListComment] = useState([]);
   const navigate = useNavigate();
   const handleShowModalComment = async () => {
-    // if (!isAuthenticated) { 
+    // if (!isAuthenticated) {
     //   navigate("login");
     //   toast.warning("Vui lòng đăng nhập để thao tác");
     // } else {
-      const data = await viewCommentsUser(post_id, 1);
-      setListComment(data["data"]["data"]);
-      setShowModal(true);
+    const data = await viewCommentsUser(post_id, 1);
+    setListComment(data["data"]["data"]);
+    setShowModal(true);
     // }
   };
 
@@ -116,14 +115,21 @@ const Post = ({
     } else {
       if (liked) {
         const data = await removeReactPost(post_id, accessToken, user_id);
+        console.log("========== remove");
+        console.log("Unlike")
+        console.log(react)
+        console.log(data);
         if (data.statusCode == 200) {
           setReact(react - 1);
         }
+        console.log(react)
       } else {
+        console.log("Into here! createReactPost")
         const data = await createReactPost(post_id, accessToken, user_id);
         if (data.statusCode == 200) {
           setReact(react + 1);
         }
+        console.log("@@@")
       }
       setLiked(!liked);
     }
@@ -182,6 +188,7 @@ const Post = ({
             stroke="currentColor"
             className={`h-6 w-6 ${!liked ? "" : "text-red-400"}`}
           >
+
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
