@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useSelector } from "react-redux";
 const fetchPost = async () =>{
-    const response = await fetch('http://foodsocial.camenryder.xyz/post/view-posts?pageSize=8&page=2');
+    const response = await fetch('http://foodsocial.camenryder.xyz/post/view-posts?pageSize=8&page=1');
     const postsData = await response.json();
     return postsData;
 }
