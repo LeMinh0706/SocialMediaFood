@@ -3,7 +3,7 @@ import store from '../redux/store.js'
 
 const instance = axios.create({
     baseURL: 'http://foodsocial.camenryder.xyz/',
-    timeout: 1000
+    timeout: 5000
 });
 
 

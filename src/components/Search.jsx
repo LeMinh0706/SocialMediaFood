@@ -1,28 +1,50 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import { toast } from 'react-toastify';
 import { fetchUserSearch } from '../Services/AxiosUser';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { storeSearchResult } from '../action/searchAction';
+import searchReducer from '../reducer/searchReducer';
 
 const Search = () => {
 
-    const [userList, setUserList] = useState()
+    const dispatch = useDispatch();
 
+    const navigate = useNavigate()
+
+    const [userList, setUserList] = useState()
+   
     const [text, setText] = useState('')
 
     const onClickSearching = (e) => {
         console.log("Your click:", text);
     }
 
-    const handleSearch = (e) => {
-        const users = fetchUserSearch(e.target.value)
-        setUserList(users);
+    const handleSearch = async(e) => {
+        try{
+            let res = await fetchUserSearch(e.target.value);
+            if(res && res.statusCode === 200)
+                setUserList(res.data);
+        }catch(Error){}
     }
 
-    useEffect(()=>{
 
+
+    useEffect(()=>{
+        console.log(userList)
     }, [userList]);
 
     const handleKeyUp = (e) => {
-        
+        if(e.key === "Enter" && e.target.value !==''){
+            console.log(e.key);
+            dispatch(storeSearchResult(userList));
+            navigate('search-result');
+            // <Navigate to='search-result' state={userList}/>
+        }
+        else if(e.key === "Enter" && e.target.value === '')
+            console.log("Search box empty. Can't search!")
+        else
+            console.log(e.target.value)
     }
 
     return (
@@ -42,7 +64,7 @@ const Search = () => {
                     </button>
 
                 }
-                <input id='search' onChange={handleSearch} value={text} className='p-3 focus:outline-none border-l rounded-md text-center w-[48rem]' type="text" placeholder='Tìm kiếm' />
+                <input id='search' onKeyUp={handleKeyUp} onChange={handleSearch} className='p-3 focus:outline-none border-l rounded-md text-center w-[48rem]' type="text" placeholder='Tìm kiếm' />
             </label>
         </div>
     )

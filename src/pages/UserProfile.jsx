@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useEffect, useState } from 'react'
-import { fetchUserMe } from '../Services/Query/api'
+
 import { useSelector } from 'react-redux'
 import Post from '../components/Post'
-import { fetchUserPost } from '../Services/AxiosUser'
+import { fetchUserMe, fetchUserPost } from '../Services/AxiosUser'
 import CreatePost from '../components/CreatePost'
 import HeaderProfile from '../components/HeaderProfile'
 
