@@ -1,7 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
+import { fetchUserSearch } from '../Services/AxiosUser';
 
 const Search = () => {
+
+    const [userList, setUserList] = useState()
 
     const [text, setText] = useState('')
 
@@ -10,8 +13,18 @@ const Search = () => {
     }
 
     const handleSearch = (e) => {
-        setText(e.target.value)
+        const users = fetchUserSearch(e.target.value)
+        setUserList(users);
     }
+
+    useEffect(()=>{
+
+    }, [userList]);
+
+    const handleKeyUp = (e) => {
+        
+    }
+
     return (
         <div>
             <label className='flex items-center gap-2 border-2 pl-2 rounded-lg bg-white ' htmlFor="search">
