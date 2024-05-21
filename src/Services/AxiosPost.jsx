@@ -19,92 +19,77 @@ import axios from "./AxiosCustomize";
 // };
 // export { createPost }
 
-
 ///////
 const createPost = async (files, description, token, userId) => {
-    // if (!file) {
-    //     throw new Error("Please select a file first!");
-    // }
+  // if (!file) {
+  //     throw new Error("Please select a file first!");
+  // }
 
+  const formData = new FormData();
+  formData.append("description", description);
 
-    const formData = new FormData();
-    formData.append('description', description);
+  for (let i = 0; i < files.length; i++) {
+    formData.append("files", files[i]);
+  }
 
-    for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]);
-    }
+  // formData.append("files", files)
 
-    // formData.append("files", files)
+  try {
+    const response = await axios.post(`post/create-post/${userId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-    try {
-        const response = await axios.post(
-            `post/create-post/${userId}`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`,
-                },
-            }
-        );
-
-        return response.data;
-    } catch (error) {
-        throw new Error("There was an error uploading the file: " + error.message);
-    }
+    return response.data;
+  } catch (error) {
+    throw new Error("There was an error uploading the file: " + error.message);
+  }
 };
 
-
 const updatePost = async (files, description, token, postid) => {
-    const formData = new FormData();
-    formData.append("description", description);
-    console.log("files", files);
-    if (files[0] != null) {
-        for (let i = 0; i < files.length; i++) {
-            formData.append("files", files[i]);
-        }
+  const formData = new FormData();
+  formData.append("description", description);
+  console.log("files", files);
+  if (files[0] != null) {
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
     }
+  }
 
-    try {
-        const response = await axios.put(
-            `post/update-post/${postid}`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Authorization": `Bearer ${token}`,
-                },
-            }
-        );
+  try {
+    const response = await axios.put(`post/update-post/${postid}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-        return response.data;
-    } catch (error) {
-        console.error("There was an error uploading the file:", error);
-        throw new Error("There was an error uploading the file: " + error.message);
-    }
+    return response.data;
+  } catch (error) {
+    console.error("There was an error uploading the file:", error);
+    throw new Error("There was an error uploading the file: " + error.message);
+  }
 };
 
 export default updatePost;
 
-
 const removePost = async (postid, userId, token) => {
-    try {
-        const response = await axios.delete(
-            `post/delete-post`,
-            {
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                },
-                data: {
-                    post_id: postid,
-                    user_id: userId,
-                },
-            }
-        );
-        return response.data;
-    } catch (error) {
-        throw new Error("There was an error deleting the post: " + error.message);
-    }
+  try {
+    const response = await axios.delete(`post/delete-post`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        post_id: postid,
+        user_id: userId,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("There was an error deleting the post: " + error.message);
+  }
 };
 
 const createReactPost = async (post_id, token, user_id) => {
@@ -128,13 +113,16 @@ const createReactPost = async (post_id, token, user_id) => {
   }
 };
 
-const removeReactPost = async (post_id , token ,  user_id) => {
+const removeReactPost = async (post_id, token, user_id) => {
+  console.log("Remove react post");
+  console.log(post_id);
+  console.log(user_id);
   try {
     const response = await axios.delete(
       "http://camenryder.xyz/react-post/remove-react",
       {
-        post_id: post_id,
-        user_id: user_id,
+        "post_id": post_id,
+        "user_id": user_id,
       },
       {
         headers: {
@@ -142,14 +130,16 @@ const removeReactPost = async (post_id , token ,  user_id) => {
         },
       }
     );
+    console.log("Data remove: ");
+    console.log(response.data);
+
     return response.data;
   } catch (error) {
     throw new Error("There was an error fetching the data: " + error.message);
   }
-}
+};
 
-
-const viewCommentsUser = async (post_id, page ) => {
+const viewCommentsUser = async (post_id, page) => {
   try {
     const response = await axios.post(
       "http://camenryder.xyz/comment/view-comment-post",
@@ -157,7 +147,7 @@ const viewCommentsUser = async (post_id, page ) => {
         post_id: post_id,
         page_size: 30,
         page: page,
-      },
+      }
       // {
       //   headers: {
       //     Authorization: `Bearer ${token}`,
@@ -224,9 +214,17 @@ const createCommentsUser = async (
   }
 };
 const fetchData = async () => {
-  return axios.get('post/view-posts?pageSize=20&page=1');
+  return axios.get("post/view-posts?pageSize=20&page=1");
 };
 
-export { createPost, viewCommentsUser, createCommentsUser, deleteCommentsUser , createReactPost , removeReactPost };
-
-export { createPost, removePost, fetchData, updatePost }
+export {
+  createPost,
+  viewCommentsUser,
+  createCommentsUser,
+  deleteCommentsUser,
+  createReactPost,
+  removeReactPost,
+  removePost,
+  fetchData,
+  updatePost,
+};

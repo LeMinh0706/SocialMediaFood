@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Avt from "./Avt";
-import Dropdown from './Dropdown'
+import Dropdown from "./Dropdown";
 import { Modal } from "../modal/CommentModal";
 import { Comment } from "../modal/CommentModal";
 import { useSelector } from "react-redux";
@@ -26,7 +26,6 @@ const Post = ({
   totalLike,
   totalComment,
 }) => {
-
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
   const accessToken = useSelector((state) => state.user.account.access_token);
@@ -38,24 +37,26 @@ const Post = ({
   const [listComment, setListComment] = useState([]);
   const navigate = useNavigate();
   const handleShowModalComment = async () => {
-    // if (!isAuthenticated) { 
+    // if (!isAuthenticated) {
     //   navigate("login");
     //   toast.warning("Vui lòng đăng nhập để thao tác");
     // } else {
-      const data = await viewCommentsUser(post_id, 1);
-      setListComment(data["data"]["data"]);
-      setShowModal(true);
+    const data = await viewCommentsUser(post_id, 1);
+    setListComment(data["data"]["data"]);
+    setShowModal(true);
     // }
   };
 
   const fetchData = async () => {
     try {
+      console.log("Post id set like");
+      console.log(post_id);
       const response = await axios.get(
         `http://camenryder.xyz/react-post/get-total-react/${post_id}`,
         {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
+          // headers: {
+          //   Authorization: `Bearer ${accessToken}`,
+          // },
         }
       );
       return response.data;
@@ -63,13 +64,17 @@ const Post = ({
       throw new Error("There was an error fetching the data: " + error.message);
     }
   };
+  console.log("Is auuthen ticated ? ");
+  console.log(isAuthenticated);
   if (isAuthenticated) {
     // set like default
+    console.log("Into here? Likeed => ");
     fetchData()
       .then((data) => {
         console.log("Fetched react data:", data["data"]["listData"].length);
         data["data"]["listData"].forEach((e) => {
           if (e["User"]["user_id"] == user_id) {
+            console.log("Go here likedd ? ");
             setLiked(true);
           }
         });
@@ -111,11 +116,15 @@ const Post = ({
   };
 
   const handleLike = async () => {
+    console.log("Into here? ");
+    console.log("access token:  ");
+    console.log(accessToken);
     if (!isAuthenticated) {
       navigate("login");
       toast.warning("Vui lòng đăng nhập để thao tác");
     } else {
       if (liked) {
+        console.log("Into here? remove ? ");
         const data = await removeReactPost(post_id, accessToken, user_id);
         if (data.statusCode == 200) {
           setReact(react - 1);
@@ -148,8 +157,7 @@ const Post = ({
           </div>
         </div>
         <div>
-          {isAuthenticated ? <Dropdown iduser={user_id} idpost={props.postid} postDetail={props} ></Dropdown> : ""}
-
+          {/* {isAuthenticated ? <Dropdown iduser={user_id} idpost={post_id} postDetail={props} ></Dropdown> : ""} */}
         </div>
       </div>
       <div>
