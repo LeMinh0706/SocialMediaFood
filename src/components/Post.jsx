@@ -25,6 +25,7 @@ const Post = ({
   images,
   totalLike,
   totalComment,
+  props
 }) => {
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
@@ -116,9 +117,7 @@ const Post = ({
   };
 
   const handleLike = async () => {
-    console.log("Into here? ");
-    console.log("access token:  ");
-    console.log(accessToken);
+ 
     if (!isAuthenticated) {
       navigate("login");
       toast.warning("Vui lòng đăng nhập để thao tác");
@@ -157,7 +156,7 @@ const Post = ({
           </div>
         </div>
         <div>
-          {/* {isAuthenticated ? <Dropdown iduser={user_id} idpost={post_id} postDetail={props} ></Dropdown> : ""} */}
+          {isAuthenticated ? <Dropdown iduser={user_id} idpost={post_id} postDetail={props} ></Dropdown> : ""}
         </div>
       </div>
       <div>

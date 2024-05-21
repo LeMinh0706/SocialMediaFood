@@ -121,12 +121,12 @@ const removeReactPost = async (post_id, token, user_id) => {
     const response = await axios.delete(
       "http://camenryder.xyz/react-post/remove-react",
       {
-        "post_id": post_id,
-        "user_id": user_id,
-      },
-      {
         headers: {
           Authorization: `Bearer ${token}`,
+        },
+        data: {
+          post_id: post_id,
+          user_id: user_id,
         },
       }
     );

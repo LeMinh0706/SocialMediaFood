@@ -51,6 +51,7 @@ const Home = (props) => {
             totalComment={item["Total comment"]}
             description={item.description}
             userid={item.user_id}
+            props={item}
             post_id={item.post_id}
             images={item.PostImage.map((iItem) => (
               <img
