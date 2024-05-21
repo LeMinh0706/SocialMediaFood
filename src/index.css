@@ -5,3 +5,7 @@
 body{
     background-color: #F6F6F6;
 }
+
+button:hover{
+    opacity: 0.8;
+}
