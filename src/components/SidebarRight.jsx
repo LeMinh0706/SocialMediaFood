@@ -18,7 +18,7 @@ const SidebarRight = () => {
                 <img className='w-full h-[8rem] object-cover' src={background} alt="" />
             </div>
             <Link to='profile'>
-                <img className='w-28 mt-3 border-2 border-rose-600 rounded-full' src={avatar} alt="" />
+                <img className='w-28 mt-3 border-2 border-rose-600 rounded-full h-28' src={avatar} alt="" />
                 <p className='text-center mt-2 text-lg font-medium text-rose-700'>{username}</p>
             </Link>
             <button className='p-3 mt-10 bg-rose-700 text-white rounded-lg font-medium'>Create Post Now</button>

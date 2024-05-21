@@ -65,15 +65,22 @@ const UserProfile = () => {
                 ></HeaderProfile>
                 <CreatePost></CreatePost>
                 {listPost.map((item) => (
-                    <Post key={item.post_id}
+                    <Post
+                        key={item.post_id}
+                        props={item}
+                        post_id={item.post_id}
                         avt={item.User.url_avatar}
                         name={item.User.fullname}
                         time={item.date_create_post}
+                        totalLike={item["Total react"]}
+                        totalComment={item["Total comment"]}
                         description={item.description}
-                        userid={item.user_id}
-                        postid={item.post_id}
                         images={item.PostImage.map((iItem) => (
-                            <img className='w-full h-auto' key={item.id} src={iItem.url_image}></img>
+                            <img
+                                className="w-full h-auto"
+                                key={item.id}
+                                src={iItem.url_image}
+                            ></img>
                         ))}
                     />
                 ))}

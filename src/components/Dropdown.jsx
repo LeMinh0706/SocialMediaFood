@@ -10,9 +10,6 @@ const Dropdown = ({ iduser, idpost, token, postDetail }) => {
     token = useSelector(state => state.user.account.accessToken)
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
 
-    // console.log(postDetail);
-
-
     const openModalUpdate = () => {
         setIsOpenUpdate(true);
     };

@@ -1,13 +1,15 @@
-import { FETCH_USER_LOGIN_SUCCESS,SEARCH_USER } from "../action/useAction";
+import { FETCH_USER_LOGIN_SUCCESS} from "../action/useAction";
 
 
 const INITIAL_STATE = {
-    account:{
-        access_token: '',
-        username: '',
-        avatar: '',
-    },
-    isAuthenticated: false
+  account: {
+    accessToken: "",
+    username: "",
+    avatar: "",
+    userId: 0,
+    background: "",
+  },
+  isAuthenticated: false,
 };
 const userReducer = (state = INITIAL_STATE, action) =>{
     switch (action.type) {
@@ -23,10 +25,6 @@ const userReducer = (state = INITIAL_STATE, action) =>{
             },
             isAuthenticated: true,
           }
-        case SEARCH_USER :
-        return{
-
-        }
         default:
           return state
       }

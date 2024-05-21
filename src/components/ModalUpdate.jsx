@@ -7,10 +7,9 @@ const ModalUpdate = ({ closeModal, post }) => {
     const [images, setImages] = useState([]);
 
     const token = useSelector(state => state.user.account.accessToken)
-
-
+    console.log(post);
     // console.log(post.postid);
-    // console.log(description);
+    console.log(description);
     // console.log("Image: ", images);
     //gọi api đăng ký 2 tấm hình => url
     const handleDescriptionChange = (e) => {
@@ -24,10 +23,13 @@ const ModalUpdate = ({ closeModal, post }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updatePost(images, description, token, post.postid)
+            console.log(post.post_id);
+            const res = await updatePost(images, description, token, post.post_id)
+            console.log("Updata duoc");
+            console.log(res);
             closeModal();
         } catch (error) {
-
+            console.log("Updata ko duoc");
         }
     };
 
