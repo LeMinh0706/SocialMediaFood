@@ -25,6 +25,7 @@ const Post = ({
   totalLike,
   totalComment,
 }) => {
+
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
   const accessToken = useSelector((state) => state.user.account.access_token);
@@ -116,20 +117,20 @@ const Post = ({
       if (liked) {
         const data = await removeReactPost(post_id, accessToken, user_id);
         console.log("========== remove");
-        console.log("Unlike")
-        console.log(react)
+        console.log("Unlike");
+        console.log(react);
         console.log(data);
         if (data.statusCode == 200) {
           setReact(react - 1);
         }
-        console.log(react)
+        console.log(react);
       } else {
-        console.log("Into here! createReactPost")
+        console.log("Into here! createReactPost");
         const data = await createReactPost(post_id, accessToken, user_id);
         if (data.statusCode == 200) {
           setReact(react + 1);
         }
-        console.log("@@@")
+        console.log("@@@");
       }
       setLiked(!liked);
     }
@@ -188,7 +189,6 @@ const Post = ({
             stroke="currentColor"
             className={`h-6 w-6 ${!liked ? "" : "text-red-400"}`}
           >
-
             <path
               strokeLinecap="round"
               strokeLinejoin="round"

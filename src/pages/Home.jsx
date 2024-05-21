@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPost } from "../Services/Query/api";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post";
 import Search from "../components/Search";
 import axios from "axios";
+import { getPostFisrt } from "../action/postAction";
 
 const Home = (props) => {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
-  const account = useSelector((state) => state.user.account);
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  // const account = useSelector((state) => state.user.account);
 
-  // console.log("Account data: ", account);
+  const dispatch = useDispatch();
+  const [posts, setPosts] = useState([]);
 
-  // const {
-  //   data: postData,
-  //   error,
-  //   isLoading,
-  // } = useQuery({
-  //   queryKey: ["Posts"],
-  //   queryFn: fetchPost,
-  // });
-
-  const fetchData = async () => {
+  const fetchDataPost = async () => {
     try {
       const response = await axios.get(
         `http://camenryder.xyz/post/view-posts?pageSize=10&page=1`
@@ -32,25 +25,26 @@ const Home = (props) => {
     }
   };
 
-  const fetchPost = async () => {
+  const fetchData = async () => {
     console.log("Update data fetchPost ");
-    let res = await fetchData();
+    let res = await fetchDataPost();
     if (res.status === 200) {
+      dispatch(getPostFisrt(res.data.data));
       setPosts(res.data.data);
     }
   };
 
-  const [posts, setPosts] = useState([]);
+  const listDataComments = useSelector((state) => state.post);
+  console.log("========== _ ============");
+  console.log(listDataComments);
 
   useEffect(() => {
-    fetchPost();
+    fetchData();
   }, []);
 
   // if (isLoading) return <div>Loading...</div>;
   // if (error) return <div>An error occurred: {error.message}</div>;
 
-  console.log(posts);
-  console.log("======== _ ======== ");
   // console.log(posts.data[0]);
   // console.log("Account:", account.username, "authenthicated:", isAuthenticated);
   return (
@@ -60,8 +54,8 @@ const Home = (props) => {
           key={item.post_id}
           props={item}
           post_id={item.post_id}
-          avt={item.User.url_avatar}
-          name={item.User.fullname}
+          avt={item.url_avatar}
+          name={item.fullname}
           time={item.date_create_post}
           totalLike={item["Total react"]}
           totalComment={item["Total comment"]}
