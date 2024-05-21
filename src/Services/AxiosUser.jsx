@@ -34,4 +34,13 @@ const fetchUserMe = async (token) => {
     }
 }
 
-export { fetchUserPost, fetchUserMe }
+const fetchUserSearch = async(key) => {
+    try{
+        const response = await axios.post(`/user/Search-User?key=${key}`);
+        return response.data;
+    }catch(error){
+        throw new Error("There was an error fetching users data: " + error.message);
+    }
+}
+
+export { fetchUserPost, fetchUserMe , fetchUserSearch}
