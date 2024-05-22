@@ -1,25 +1,20 @@
 import axios from "./AxiosCustomize";
 
 const createPost = async (files, description, token, userId) => {
-
   const formData = new FormData();
-  formData.append('description', description);
+  formData.append("description", description);
 
   for (let i = 0; i < files.length; i++) {
-    formData.append('files', files[i]);
+    formData.append("files", files[i]);
   }
   // formData.append("files", files)
   try {
-    const response = await axios.post(
-      `post/create-post/${userId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.post(`post/create-post/${userId}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -38,16 +33,12 @@ const updatePost = async (files, description, token, postid) => {
   }
 
   try {
-    const response = await axios.put(
-      `post/update-post/${postid}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          "Authorization": `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await axios.put(`post/update-post/${postid}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -56,21 +47,17 @@ const updatePost = async (files, description, token, postid) => {
   }
 };
 
-
 const removePost = async (postid, userId, token) => {
   try {
-    const response = await axios.delete(
-      `post/delete-post`,
-      {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-        data: {
-          post_id: postid,
-          user_id: userId,
-        },
-      }
-    );
+    const response = await axios.delete(`post/delete-post`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        post_id: postid,
+        user_id: userId,
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error("There was an error deleting the post: " + error.message);
@@ -78,7 +65,7 @@ const removePost = async (postid, userId, token) => {
 };
 
 const fetchData = async () => {
-  return axios.get('post/view-posts?pageSize=20&page=1');
+  return axios.get("post/view-posts?pageSize=20&page=1");
 };
 
 const createReactPost = async (post_id, token, user_id) => {
@@ -104,34 +91,28 @@ const createReactPost = async (post_id, token, user_id) => {
 
 const removeReactPost = async (post_id, token, user_id) => {
   try {
-    const response = await axios.delete(
-      "react-post/remove-react",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          post_id: post_id,
-          user_id: user_id,
-        },
-      }
-    );
+    const response = await axios.delete("react-post/remove-react", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        post_id: post_id,
+        user_id: user_id,
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error("There was an error fetching the data: " + error.message);
   }
-}
+};
 
 const viewCommentsUser = async (post_id, page) => {
   try {
-    const response = await axios.post(
-      "comment/view-comment-post",
-      {
-        post_id: post_id,
-        page_size: 30,
-        page: page,
-      },
-    );
+    const response = await axios.post("comment/view-comment-post", {
+      post_id: post_id,
+      page_size: 30,
+      page: page,
+    });
     return response.data;
   } catch (error) {
     throw new Error("There was an error fetching the data: " + error.message);
@@ -140,18 +121,15 @@ const viewCommentsUser = async (post_id, page) => {
 
 const deleteCommentsUser = async (post_id, token, user_id) => {
   try {
-    const response = await axios.delete(
-      `post/delete-post`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          post_id: post_id,
-          user_id: user_id,
-        },
-      }
-    );
+    const response = await axios.delete(`post/delete-post`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        post_id: post_id,
+        user_id: user_id,
+      },
+    });
     return response.data;
   } catch (error) {
     throw new Error("comment delete err ?  " + error.message);
@@ -196,5 +174,5 @@ export {
   createCommentsUser,
   deleteCommentsUser,
   createReactPost,
-  removeReactPost
+  removeReactPost,
 };

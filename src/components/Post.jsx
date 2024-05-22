@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import Avt from "./Avt";
 import { Modal } from "../modal/CommentModal";
@@ -13,6 +14,7 @@ import {
 } from "../Services/AxiosPost";
 import axios from "axios";
 
+// eslint-disable-next-line no-unused-vars
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 // eslint-disable-next-line react/prop-types
