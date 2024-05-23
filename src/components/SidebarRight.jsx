@@ -14,10 +14,9 @@ const SidebarRight = () => {
     return (
         <div className='flex flex-col items-center fixed right-16 top-64 rounded-xl h-[40%] w-[18rem] bg-white border-2 shadow-lg text-gray-400 p-4'>
             <div className='w-full h-[4rem]'>
-
                 <img className='w-full h-[8rem] object-cover' src={background} alt="" />
             </div>
-            <Link to='profile'>
+            <Link className='flex flex-col items-center' to='profile'>
                 <img className='w-28 object-cover mt-3 border-2 border-rose-600 rounded-full h-28' src={avatar} alt="" />
                 <p className='text-center mt-2 text-lg font-medium text-rose-700'>{username}</p>
             </Link>
