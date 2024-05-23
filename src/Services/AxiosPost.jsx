@@ -136,6 +136,30 @@ const deleteCommentsUser = async (post_id, token, user_id) => {
   }
 };
 
+const editComment = async (post_id, image, description, token) => {
+  try {
+    const formData = new FormData();
+    formData.append("description", description);
+    if (image) {
+      formData.append("fileUpload", image);
+    }
+    const response = await axios.post(
+      `comment/create-comment/${post_id}`,
+      formData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    throw new Error("Update comment fail ?? " + err.message);
+  }
+};
+
 const createCommentsUser = async (
   post_top_id,
   image,
@@ -175,4 +199,5 @@ export {
   deleteCommentsUser,
   createReactPost,
   removeReactPost,
+  editComment
 };

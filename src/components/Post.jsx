@@ -3,12 +3,13 @@ import { useState } from "react";
 import Avt from "./Avt";
 import { Modal } from "../modal/CommentModal";
 import { Comment } from "../modal/CommentModal";
-import Dropdown from "./Dropdown.jsx"
+import Dropdown from "./Dropdown.jsx";
 import { useSelector } from "react-redux";
 import {
   createCommentsUser,
   createReactPost,
   deleteCommentsUser,
+  editComment,
   removeReactPost,
   viewCommentsUser,
 } from "../Services/AxiosPost";
@@ -29,7 +30,6 @@ const Post = ({
   totalLike,
   totalComment,
 }) => {
-
   const [comments, setComments] = useState(totalComment);
   const [showModal, setShowModal] = useState(false);
   const accessToken = useSelector((state) => state.user.account.accessToken);
@@ -40,9 +40,15 @@ const Post = ({
   const [liked, setLiked] = useState(false);
   const [react, setReact] = useState(totalLike);
   const [listComment, setListComment] = useState([]);
+  const [updateComment , setUpdateComment] = useState(false);
+  const  [dataEditComment ,  setDataEditComment] = useState({
+    content : "hello",
+    url_image: "ajdbakjsbd" , 
+
+  });
   const navigate = useNavigate();
   const handleShowModalComment = async () => {
-    // if (!isAuthenticated) { 
+    // if (!isAuthenticated) {
     //   navigate("login");
     //   toast.warning("Vui lòng đăng nhập để thao tác");
     // } else {
@@ -86,8 +92,8 @@ const Post = ({
   const handleCloseModal = () => {
     setShowModal(false);
   };
-  const onDeleteComment = async (post_id_delete, accessToken, user_id) => {
 
+  const onDeleteComment = async (post_id_delete, accessToken, user_id) => {
     const data = await deleteCommentsUser(post_id_delete, accessToken, user_id);
     if (data.statusCode == 200) {
       const data = await viewCommentsUser(post_id, 1, accessToken);
@@ -96,21 +102,38 @@ const Post = ({
       toast.success("Xóa bình luận thành công");
     }
   };
-  const onHandleComment = async (content, file) => {
-    const data = await createCommentsUser(
-      post_id,
-      file,
-      content,
-      accessToken,
-      user_id
-    );
-    if (data.statusCode == 200) {
-      const data = await viewCommentsUser(post_id, 1, accessToken);
-      setListComment(data["data"]["data"]);
-      setComments(data["data"]["data"].length);
+  const onHandleComment = async (content, file, isUpdate) => {
+    if (isUpdate == true) {
+      const data = await editComment(post_id, file, content);
+      if (data.statusCode == 200) {
+        console.log("into here bro ?  ");
+        console.log(data);
+      }
+    } else {
+      const data = await createCommentsUser(
+        post_id,
+        file,
+        content,
+        accessToken,
+        user_id
+      );
+      if (data.statusCode == 200) {
+        const data = await viewCommentsUser(post_id, 1, accessToken);
+        setListComment(data["data"]["data"]);
+        setComments(data["data"]["data"].length);
+      }
     }
-    // setComments(comments + 1);
+       // setComments(comments + 1);
   };
+
+  const onGetEditComment = (content , url_image ) =>  {
+    setDataEditComment( {
+      content: content , 
+      url_image: url_image,
+    })
+    setUpdateComment(true); 
+  }
+
 
   const handleLike = async () => {
     if (!isAuthenticated) {
@@ -151,7 +174,15 @@ const Post = ({
           </div>
         </div>
         <div>
-          {isAuthenticated ? <Dropdown iduser={props.user_id} idpost={post_id} postDetail={props} ></Dropdown> : ""}
+          {isAuthenticated ? (
+            <Dropdown
+              iduser={props.user_id}
+              idpost={post_id}
+              postDetail={props}
+            ></Dropdown>
+          ) : (
+            ""
+          )}
         </div>
       </div>
       <div>
@@ -207,6 +238,8 @@ const Post = ({
         post_id={post_id}
         accessToken={accessToken}
         handleClose={handleCloseModal}
+        isUpdate={updateComment}
+        commentEditData={dataEditComment}
       >
         <div className="space-y-4">
           {listComment.map((comment) => {
@@ -225,6 +258,7 @@ const Post = ({
                 time={comment.date_create_post}
                 content={comment.description}
                 onDeleteComment={onDeleteComment}
+                onGetEditComment= {onGetEditComment}
                 // onRepairComment= {}
                 image={image}
               />

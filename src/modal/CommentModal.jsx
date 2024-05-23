@@ -5,10 +5,13 @@ import { faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 // import axios from "./AxiosCustomize";
 // eslint-disable-next-line react/prop-types
-export const Modal = ({ show, handleClose, children, onHandleComment }) => {
-  const [commentText, setCommentText] = useState("");
+export const Modal = ({ show, handleClose, children, onHandleComment , isUpdate  , commentEditData}) => {
+  const [commentText, setCommentText] = useState(isUpdate ? commentEditData['content'] : "");
   const [selectedFile, setSelectedFile] = useState(null);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+ 
+  // isUpdate={updateComment}
+  // commentEditData={dataEditComment}
 
   if (!show) {
     return null;
@@ -78,10 +81,11 @@ export const Modal = ({ show, handleClose, children, onHandleComment }) => {
                 <FontAwesomeIcon icon={faPaperclip} className="w-4 h-4" />
               </button>
               <button
-                className={`ml-1 p-2 rounded-full shadow-sm focus:outline-none focus:ring-2 ${commentText.trim()
-                  ? "bg-blue-500 hover:bg-blue-700 focus:ring-blue-300 text-white"
-                  : "bg-gray-300 text-gray-400"
-                  }`}
+                className={`ml-1 p-2 rounded-full shadow-sm focus:outline-none focus:ring-2 ${
+                  commentText.trim()
+                    ? "bg-blue-500 hover:bg-blue-700 focus:ring-blue-300 text-white"
+                    : "bg-gray-300 text-gray-400"
+                }`}
                 disabled={!commentText.trim()}
                 onClick={async () => await handleSendComment()}
               >
@@ -106,6 +110,7 @@ export const Comment = ({
   content,
   image,
   onDeleteComment,
+  onGetEditComment
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSnackBar, setShowSnackBar] = useState(false);
@@ -177,7 +182,9 @@ export const Comment = ({
               <div className="absolute right-0 mt-2 w-48 bg-white border rounded-md shadow-lg z-40">
                 <ul className="py-1">
                   <li>
-                    <button className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <button
+                      onClick={() => onGetEditComment(content, image /* on urlData */) }
+                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                       Edit
                     </button>
                   </li>
