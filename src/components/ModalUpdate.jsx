@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { updatePost } from '../Services/AxiosPost';
 import { useSelector } from 'react-redux';
 
-const ModalUpdate = ({ closeModal, post }) => {
+const ModalUpdate = ({ closeModal, post, props, fetchPost }) => {
     const [description, setDescription] = useState(post?.description || '');
     const [images, setImages] = useState([]);
 
     const token = useSelector(state => state.user.account.accessToken)
-    console.log(post);
+    // console.log(post);
     // console.log(post.postid);
-    console.log(description);
+    // console.log(description);
     // console.log("Image: ", images);
     //gọi api đăng ký 2 tấm hình => url
     const handleDescriptionChange = (e) => {
@@ -23,19 +23,25 @@ const ModalUpdate = ({ closeModal, post }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(post.post_id);
+            // console.log(post.post_id);
             const res = await updatePost(images, description, token, post.post_id)
             console.log("Updata duoc");
             console.log(res);
             closeModal();
+            await fetchPost()
         } catch (error) {
             console.log("Updata ko duoc");
         }
     };
 
+    const fetch = async () => {
+        await fetchPost()
+    }
+
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded shadow-lg w-96">
+                {/* <button onClick={fetch}>fetch</button> */}
                 <h2 className="text-xl font-bold mb-4">Update Description and Image for </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">

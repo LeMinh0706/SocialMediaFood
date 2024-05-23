@@ -21,7 +21,7 @@ const Home = (props) => {
 
   const fetchPost = async () => {
     let res = await fetchData();
-    // console.log("Res", res);
+    console.log("Res", res);
     if (res.status === 200) {
       setListPost(res.data.data)
     }
@@ -32,7 +32,10 @@ const Home = (props) => {
       {isAuthenticated === false ?
         <></>
         :
-        <CreatePost></CreatePost>
+        <CreatePost
+          fetchPost={fetchPost}>
+
+        </CreatePost>
       }
       {listPost.map((item) => (
         <Post
@@ -51,7 +54,9 @@ const Home = (props) => {
               key={item.id}
               src={iItem.url_image}
             ></img>
+
           ))}
+          fetchPost={fetchPost}
         />
       ))}
     </div>

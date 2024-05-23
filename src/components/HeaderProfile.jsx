@@ -8,7 +8,7 @@ const HeaderProfile = (props) => {
             </div>
             <div className='flex items-center p-6 justify-between border-b'>
                 <div className='flex items-center gap-5'>
-                    <img className='w-40 shadow-inner border-2 border-rose-600 rounded-full' src={props.url_avatar} alt="" />
+                    <img className='w-40 h-40 shadow-inner border-2 border-rose-600 rounded-full object-cover' src={props.url_avatar} alt="" />
                     <div>
                         <p className='text-2xl font-bold text-gray-600'>{props.fullname}</p>
                         <p className='text-sx font-medium text-gray-400'>{props.total_followee} follower</p>
