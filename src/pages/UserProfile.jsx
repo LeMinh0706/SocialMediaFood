@@ -63,7 +63,9 @@ const UserProfile = () => {
                     fullname={profile.fullname}
                     total_followee={profile.total_followee}
                 ></HeaderProfile>
-                <CreatePost></CreatePost>
+                <CreatePost
+                    fetchPost={fetchPost}
+                ></CreatePost>
                 {listPost.map((item) => (
                     <Post
                         key={item.post_id}
@@ -82,6 +84,7 @@ const UserProfile = () => {
                                 src={iItem.url_image}
                             ></img>
                         ))}
+                        fetchPost={fetchPost}
                     />
                 ))}
             </div>

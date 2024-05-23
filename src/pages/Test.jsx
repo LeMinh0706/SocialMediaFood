@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { fetchUserMe, fetchUserPost } from "../Services/AxiosUser";
 import { useSelector } from "react-redux";
+import LoginForm from "../components/LoginForm"
 
 
 
@@ -35,8 +36,12 @@ const Test = () => {
     };
 
     return (
-        <div className='pt-24'>
-            Test
+        <div className='pt-24 flex items-center justify-center'>
+            <div>
+                <button className="border-2 border-r-0 p-5 py-2 text-lg font-medium w-72">Login</button>
+                <button className="border-2 border-l-0 p-5 py-2 text-lg font-medium w-72">Register</button>
+                <LoginForm></LoginForm>
+            </div>
         </div>
     );
 }

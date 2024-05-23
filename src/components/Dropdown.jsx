@@ -4,11 +4,12 @@ import { removePost } from '../Services/AxiosPost';
 import { toast } from 'react-toastify';
 import ModalUpdate from './ModalUpdate';
 
-const Dropdown = ({ iduser, idpost, token, postDetail }) => {
+const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
     const [isOpen, setIsOpen] = useState(false);
     const id = useSelector(state => state.user.account.userId)
     token = useSelector(state => state.user.account.accessToken)
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+
 
     const openModalUpdate = () => {
         setIsOpenUpdate(true);
@@ -18,20 +19,20 @@ const Dropdown = ({ iduser, idpost, token, postDetail }) => {
         setIsOpenUpdate(false);
     };
 
-    const toggleDropdown = () => {
+    const toggleDropdown = async () => {
         setIsOpen(!isOpen);
+        await fetchlist()
     };
-    // console.log("Token drop: ", token);
 
-    const handleUpdate = () => {
-        alert("Update: " + iduser + 'UserId - IdPost' + idpost)
-
+    const fetchlist = async () => {
+        await fetchPost()
     }
 
     const handleRemove = async () => {
         try {
             alert(iduser + 'UserId - IdPost' + idpost)
             let data = await removePost(idpost, iduser, token);
+            await fetchPost()
             toast.success("Xóa thành công");
             console.log(data);
         } catch (error) {
@@ -54,14 +55,13 @@ const Dropdown = ({ iduser, idpost, token, postDetail }) => {
                 <div className=" absolute mt-1 w-36 rounded-md border shadow-lg bg-white">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-
                         >Báo cáo bài viết</button>
                         {iduser === id ?
                             <>
                                 <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     onClick={openModalUpdate}
                                 >Sửa bài viết</button>
-                                {isOpenUpdate && <ModalUpdate closeModal={closeModalUpdate} post={postDetail} />}
+                                {isOpenUpdate && <ModalUpdate closeModal={closeModalUpdate} post={postDetail} fetchPost={fetchlist} />}
                                 <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     onClick={handleRemove}
                                 >Xóa bài viết</button>

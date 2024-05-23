@@ -38,7 +38,7 @@ const Navbar = () => {
                                 <Link to='profile'>
                                     <div className='flex items-center gap-3'>
                                         <p className='text-lg font-medium'>{username}</p>
-                                        <img className='h-10' src={avt} alt="" />
+                                        <img className='h-10 w-10 rounded-full object-cover' src={avt} alt="" />
                                     </div>
                                 </Link>
                             </li>

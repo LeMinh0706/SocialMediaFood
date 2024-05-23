@@ -28,6 +28,7 @@ const Post = ({
   images,
   totalLike,
   totalComment,
+  fetchPost
 }) => {
 
   const [comments, setComments] = useState(totalComment);
@@ -51,6 +52,7 @@ const Post = ({
     setShowModal(true);
     // }
   };
+
 
   const fetchData = async () => {
     try {
@@ -133,6 +135,16 @@ const Post = ({
     }
   };
 
+
+  const fetchTest = async () => {
+    try {
+      let res = await fetchPost()
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+
   return (
     <div className="w-2/5 rounded-xl bg-white border p-3">
       <div className="flex w-full justify-between border-b p-2 items-center">
@@ -151,7 +163,7 @@ const Post = ({
           </div>
         </div>
         <div>
-          {isAuthenticated ? <Dropdown iduser={props.user_id} idpost={post_id} postDetail={props} ></Dropdown> : ""}
+          {isAuthenticated ? <Dropdown iduser={props.user_id} idpost={post_id} postDetail={props} fetchPost={fetchTest}></Dropdown> : ""}
         </div>
       </div>
       <div>

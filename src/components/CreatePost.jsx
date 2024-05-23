@@ -4,7 +4,7 @@ import { createPost } from '../Services/AxiosPost';
 import { fetchPost } from '../Services/Query/api';
 import { toast } from 'react-toastify';
 
-const CreatePost = () => {
+const CreatePost = (props) => {
     const token = useSelector(state => state.user.account.accessToken)
     const userId = useSelector(state => state.user.account.userId);
 
@@ -29,7 +29,7 @@ const CreatePost = () => {
         try {
             const data = await createPost(file, description, token, userId);
             toast.success("Đăng bài thành công!");
-            // console.log(data);
+            let res = await props.fetchPost();
         } catch (error) {
             console.error(error);
         }
