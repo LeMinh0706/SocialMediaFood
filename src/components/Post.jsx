@@ -42,7 +42,7 @@ const Post = ({
   const [listComment, setListComment] = useState([]);
   const [updateComment , setUpdateComment] = useState(false);
   const  [dataEditComment ,  setDataEditComment] = useState({
-    content : "hello",
+    content : null ,
     url_image: "ajdbakjsbd" , 
 
   });
@@ -127,11 +127,11 @@ const Post = ({
   };
 
   const onGetEditComment = (content , url_image ) =>  {
+    setUpdateComment(true); 
     setDataEditComment( {
       content: content , 
       url_image: url_image,
     })
-    setUpdateComment(true); 
   }
 
 

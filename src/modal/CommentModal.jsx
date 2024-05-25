@@ -5,11 +5,21 @@ import { faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 // import axios from "./AxiosCustomize";
 // eslint-disable-next-line react/prop-types
-export const Modal = ({ show, handleClose, children, onHandleComment , isUpdate  , commentEditData}) => {
-  const [commentText, setCommentText] = useState(isUpdate ? commentEditData['content'] : "");
+export const Modal = ({
+  show,
+  handleClose,
+  children,
+  onHandleComment,
+  commentEditData,
+}) => {
+  console.log("ABC 123 abc");
+  console.log(commentEditData["content"]);
+  const [commentText, setCommentText] = useState(
+    commentEditData["content"] ?? ""
+  );
   const [selectedFile, setSelectedFile] = useState(null);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
- 
+
   // isUpdate={updateComment}
   // commentEditData={dataEditComment}
 
@@ -110,7 +120,7 @@ export const Comment = ({
   content,
   image,
   onDeleteComment,
-  onGetEditComment
+  onGetEditComment,
 }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showSnackBar, setShowSnackBar] = useState(false);
@@ -183,8 +193,11 @@ export const Comment = ({
                 <ul className="py-1">
                   <li>
                     <button
-                      onClick={() => onGetEditComment(content, image /* on urlData */) }
-                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      onClick={() =>
+                        onGetEditComment(content, image /* on urlData */)
+                      }
+                      className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    >
                       Edit
                     </button>
                   </li>
