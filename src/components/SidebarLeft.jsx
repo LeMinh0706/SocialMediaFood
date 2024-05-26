@@ -12,9 +12,9 @@ const SidebarLeft = () => {
     const dispatch = useDispatch();
 
     const handleLogout = () => {
-        // Dispatch the logout action
+
         dispatch(userLogout());
-        // Optional: Redirect to login page or home page
+
         navigate('/');
     };
 
