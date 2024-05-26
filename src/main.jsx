@@ -15,6 +15,8 @@ import Test from './pages/Test.jsx';
 import './index.css'
 import NotFound from './pages/NotFound.jsx';
 import UsersResult from './pages/UsersResult.jsx';
+import Other from './pages/Other.jsx';
+import Others from './pages/Others.jsx';
 
 const queryClient = new QueryClient()
 
@@ -30,6 +32,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                 <Route index element={<Home />} />
                 <Route path='login' element={<LoginRegister />} />
                 <Route path='profile' element={<UserProfile />} />
+                <Route path='user/:userId' element={<Other />}>
+                </Route>
                 <Route path='test' element={<Test />} />
                 <Route path='*' element={<NotFound />} />
                 <Route path='search-result' element={<UsersResult />} />

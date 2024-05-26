@@ -151,7 +151,9 @@ const Post = ({
         <div className="flex items-center gap-5">
           <Avt src={avt}></Avt>
           <div>
-            <p className="font-medium">{name}</p>
+            <Link to={`/user/${props.user_id}`}>
+              <p className="font-medium">{name}</p>
+            </Link>
             <p className="text-xs font-lg text-gray-600">
               {new Date(Number(time))
                 .toLocaleString("en-US", {
