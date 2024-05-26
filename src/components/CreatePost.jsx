@@ -11,7 +11,7 @@ const CreatePost = (props) => {
     const [file, setFile] = useState([]);
     const [description, setDescription] = useState('');
 
-    console.log("File", file);
+    // console.log("File", file);
     // console.log("Des: ", description);
     const handleDesChange = (event) => {
         setDescription(event.target.value)

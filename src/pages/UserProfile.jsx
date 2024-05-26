@@ -25,7 +25,7 @@ const UserProfile = () => {
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
     // console.log("Your profile: ", profile);
-    console.log("List post: ", listPost);
+    // console.log("List post: ", listPost);
 
     useEffect(() => {
         fetchPost();
@@ -62,6 +62,8 @@ const UserProfile = () => {
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
                     total_followee={profile.total_followee}
+                    props={profile}
+                    myProfile={myProfile}
                 ></HeaderProfile>
                 <CreatePost
                     fetchPost={fetchPost}

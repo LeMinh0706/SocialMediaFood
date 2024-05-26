@@ -21,7 +21,6 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
 
     const toggleDropdown = async () => {
         setIsOpen(!isOpen);
-        await fetchlist()
     };
 
     const fetchlist = async () => {
