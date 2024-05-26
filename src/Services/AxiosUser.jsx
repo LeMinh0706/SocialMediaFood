@@ -34,6 +34,18 @@ const fetchUserMe = async (token) => {
     }
 }
 
+const fetchUser = async (user_id, user_id_via) => {
+    try {
+        const response = await axios.post(`user/yours`, {
+            user_id: user_id,
+            user_id_via: user_id_via
+            });
+        return response.data;
+    } catch (error) {
+        throw new Error("There was an error fetching your profile: " + error.message);
+    }
+}
+
 const fetchUserSearch = async(key) => {
     try{
         const response = await axios.post(`/user/Search-User?key=${key}`);
@@ -43,4 +55,5 @@ const fetchUserSearch = async(key) => {
     }
 }
 
-export { fetchUserPost, fetchUserMe , fetchUserSearch}
+
+export { fetchUserPost, fetchUserMe , fetchUserSearch, fetchUser}

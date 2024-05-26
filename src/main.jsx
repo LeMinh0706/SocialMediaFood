@@ -12,12 +12,15 @@ import Home from './pages/Home.jsx'
 import LoginRegister from './pages/LoginRegister.jsx'
 import UserProfile from './pages/UserProfile.jsx'
 import Test from './pages/Test.jsx';
+import NotFound from './pages/NotFound.jsx';
+import UsersResult from './pages/UsersResult.jsx';
+import DinerCreateForm from './pages/DinerCreateForm.jsx';
 
 import { navLink } from './constant/navLink.jsx'
 
 import './index.css'
-import NotFound from './pages/NotFound.jsx';
-import UsersResult from './pages/UsersResult.jsx';
+import OtherProfile from './pages/OtherProfile.jsx';
+
 
 const queryClient = new QueryClient()
 
@@ -33,7 +36,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path='profile' element={<UserProfile />} />
               <Route path='test' element={<Test />} />
               <Route path='*' element={<NotFound />} />
-              <Route path='search-result' element={<UsersResult/>}/>
+              <Route exact path='search-result' element={<UsersResult/>}/>
+              <Route exact path='search-result/:id' element={<OtherProfile/>}/>
+              <Route path='create-diner-post' element={<DinerCreateForm/>}/>
             </Route>
           </Routes>
         </BrowserRouter>
