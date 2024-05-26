@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from '../redux/store.js'
 
 const instance = axios.create({
     baseURL: 'http://foodsocial.camenryder.xyz/',

@@ -1,4 +1,4 @@
-import { FETCH_USER_LOGIN_SUCCESS} from "../action/useAction";
+import { FETCH_USER_LOGIN_SUCCESS, USER_LOGOUT} from "../action/useAction";
 
 
 const INITIAL_STATE = {
@@ -24,6 +24,10 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                 background: action.payload.data.url_background_profile,
             },
             isAuthenticated: true,
+          }
+        case USER_LOGOUT:
+          return{
+            ...INITIAL_STATE,
           }
         default:
           return state
