@@ -39,7 +39,6 @@ const Search = () => {
             console.log(e.key);
             dispatch(storeSearchResult(userList));
             navigate('search-result');
-            // <Navigate to='search-result' state={userList}/>
         }
         else if(e.key === "Enter" && e.target.value === '')
             console.log("Search box empty. Can't search!")

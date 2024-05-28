@@ -18,7 +18,7 @@ const UsersResult = (prop) => {
                     </div>
                     { user.id !== userId &&
                     <div className="left-container">
-                        <NavLink to={user.id.toString()}>See Detail</NavLink>
+                        <NavLink to={"/profile/"+user.id.toString()}>See Detail</NavLink>
                     </div>
                     }
                     { user.id === userId &&

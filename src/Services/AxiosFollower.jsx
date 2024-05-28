@@ -2,15 +2,52 @@ import axios from "./AxiosCustomize";
 
 const createFollower = async(user_id, user_follower_id ,token) => {
     try {
-        const response = await axios.get(`/tracking/create-following-a-user`, {
+        const response = await axios.post(`/tracking/create-following-a-user`, 
+        {
+            user_id: user_id,
+            user_follower_id: user_follower_id
+        },
+          {
             headers: {
-                "Authorization": `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
             },
-            data:{
-                user_id: user_id,
-                user_follower_id: user_follower_id
-            }
-        });
+          });
+        return response.data;
+    } catch (error) {
+        throw new Error("There was an error fetching your profile: " + error.message);
+    }
+}
+
+const removeFollower = async(user_id, user_follower_id ,token) => {
+    try {
+        const response = await axios.delete(`/tracking/remove-follower-user`, 
+        {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: {
+              user_id: user_id,
+              user_follower_id: user_follower_id,
+            },
+          });
+        return response.data;
+    } catch (error) {
+        throw new Error("There was an error fetching your profile: " + error.message);
+    }
+}
+
+const removeFollowing = async(user_id, user_following_id ,token) => {
+    try {
+        const response = await axios.delete(`/tracking/remove-following-user`, 
+        {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            data: {
+              user_id: user_id,
+              user_following_id: user_following_id,
+            },
+          });
         return response.data;
     } catch (error) {
         throw new Error("There was an error fetching your profile: " + error.message);
@@ -43,4 +80,4 @@ const fetchFollowing = async(user_id, token) => {
     }
 }
 
-export {fetchFollower, fetchFollowing, createFollower}
+export {fetchFollower, fetchFollowing, createFollower, removeFollower, removeFollowing}

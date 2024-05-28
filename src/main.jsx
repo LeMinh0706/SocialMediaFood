@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path='test' element={<Test />} />
               <Route path='*' element={<NotFound />} />
               <Route exact path='search-result' element={<UsersResult/>}/>
-              <Route exact path='search-result/:id' element={<OtherProfile/>}/>
+              <Route exact path='profile/:id' element={<OtherProfile/>}/>
               <Route path='create-diner-post' element={<DinerCreateForm/>}/>
             </Route>
           </Routes>
