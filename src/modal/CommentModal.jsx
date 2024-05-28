@@ -236,8 +236,7 @@ export const SnackBar = ({ message, onConfirm, onCancel }) => {
         <div className="flex justify-center gap-4">
           <button
             onClick={onConfirm}
-            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-          >
+            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
             Confirm
           </button>
           <button
@@ -268,8 +267,7 @@ export const ModalReacts = ({ show, onClose, likers }) => {
         </ul>
         <button
           onClick={onClose}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700"
-        >
+          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-700">
           Close
         </button>
       </div>
