@@ -1,42 +1,25 @@
-import { useQuery } from '@tanstack/react-query'
-import React, { useEffect, useState } from 'react'
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { fetchUser, fetchUserPost } from "../Services/AxiosUser";
+import HeaderProfile from "../components/HeaderProfile";
+import { useEffect, useState } from "react";
+import Post from "../components/Post";
 
-import { useSelector } from 'react-redux'
-import Post from '../components/Post'
-import { fetchUserMe, fetchUserPost } from '../Services/AxiosUser'
-import CreatePost from '../components/CreatePost'
-import HeaderProfile from '../components/HeaderProfile'
-import { useParams } from 'react-router-dom'
+const OtherProfile = () => {
 
-const UserProfile = () => {
+    let isLoad = false;
 
-    // const { data: myData, isLoading, isError, error } = useQuery(
-    //     {
-    //         queryKey: ["User"],
-    //         queryFn: () => fetchUserMe(token),
-    //         enabled: !!token,
-    //     }
-    // );
-    // if (isLoading) return <div>Loading...</div>;
-    // if (error) return <div>An error occurred: {error.message}</div>;
-
-    const [profile, setProfile] = useState({})
-    const [listPost, setListPost] = useState([])
-
+    let { id } = useParams()
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
-    // console.log("Your profile: ", profile);
-    // console.log("List post: ", listPost);
 
-    useEffect(() => {
-        fetchPost();
-        myProfile();
-    }, []);
+    
+    const [profile, setProfile] = useState({});
+    const [listPost, setListPost] = useState([])
 
-    const myProfile = async () => {
+    const otherProfile = async () => {
         try {
-            let res = await fetchUserMe(token)
-            // console.log("My profile: ", res);
+            let res = await fetchUser(userId,parseInt(id))
             if (res && res.statusCode === 200) {
                 setProfile(res.profile)
             }
@@ -47,7 +30,7 @@ const UserProfile = () => {
 
     const fetchPost = async () => {
         try {
-            let res = await fetchUserPost(userId, token);
+            let res = await fetchUserPost(parseInt(id), token);
             // console.log("res: ", res);
             if (res && res.statusCode === 200) {
                 setListPost(res.data)
@@ -56,22 +39,23 @@ const UserProfile = () => {
             console.error(error.message);
         }
     };
+
+    useEffect(() => {
+        otherProfile();
+        fetchPost();
+    }, []);
+    
     return (
         <>
             <div className='flex items-center flex-col gap-5'>
-                <HeaderProfile
-                    user_id = {userId} 
+                <HeaderProfile 
+                    user_id={parseInt(id)}
                     url_background_profile={profile.url_background_profile}
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
-                    total_followee={profile.total_followee}
-                    isCurrentUser = {true}
-                    props={profile}
-                    myProfile={myProfile}
-                ></HeaderProfile>
-                <CreatePost
-                    fetchPost={fetchPost}
-                ></CreatePost>
+                    isCurrentUser = {false}
+                >
+                </HeaderProfile>
                 {listPost.map((item) => (
                     <Post
                         key={item.post_id}
@@ -92,10 +76,10 @@ const UserProfile = () => {
                         ))}
                         fetchPost={fetchPost}
                     />
-                ))}
+                ))} 
             </div>
         </>
-    )
+    );
 }
 
-export default UserProfile
+export default OtherProfile

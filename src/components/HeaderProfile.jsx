@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import UpdateUserModal from './UpdateUserModal';
 import AvatarModal from './AvatarModal';
 import BackgroundModal from './BackgroundModal';
+import Follower from './Follower'
 
 const HeaderProfile = ({ props, myProfile }) => {
 
@@ -63,17 +64,21 @@ const HeaderProfile = ({ props, myProfile }) => {
                     </button>
                     <div>
                         <p className='text-2xl font-bold text-gray-600'>{props.fullname}</p>
-                        <p className='text-sx font-medium text-gray-400'>{props.total_followee} follower</p>
+                        <Follower user_id = {props.user_id} isCurrentUser = {props.isCurrentUser}></Follower>
+                        {/* {console.log("Prop: ",props)}
+                        <p className='text-sx font-medium text-gray-400'>{props.total_followee} follower</p> */}
                     </div>
                 </div>
-                <button
+                {   props.isCurrentUser &&
+                    <button
                     className='p-3 font-medium flex items-center gap-2 rounded-md text-white bg-rose-700'
                     onClick={openModalUpdate}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
                     </svg>
-                    Chỉnh sửa thông tin cá nhân</button>
+                    Chỉnh sửa thông tin cá nhân</button>}
+                
                 {isBackgroundUpdate && <BackgroundModal closeModal={closeBackgroundUpdate} fetchProfile={fetchProfile}></BackgroundModal>}
                 {isAvatarUpdate && <AvatarModal closeModal={closeAvatarUpdate} fetchProfile={fetchProfile}></AvatarModal>}
                 {isOpenUpdate && <UpdateUserModal closeModal={closeModalUpdate} props={props} fetchUserProfile={fetchProfile} />}
