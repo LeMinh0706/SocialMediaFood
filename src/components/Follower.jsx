@@ -41,8 +41,11 @@ const Follower = (props) => {
 
     
     useEffect(()=>{
+        setIsFollowed(null)
+        setIsOpenFollower(false)
+        setIsOpenFollowing(false)
         Init()
-    },[]);
+    },[props.user_id]);
 
     const openModalFollower = () => {
         setIsOpenFollower(true);

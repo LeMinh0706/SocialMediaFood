@@ -43,7 +43,7 @@ const OtherProfile = () => {
     useEffect(() => {
         otherProfile();
         fetchPost();
-    }, []);
+    }, [id]);
     
     return (
         <>
@@ -54,6 +54,8 @@ const OtherProfile = () => {
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
                     isCurrentUser = {false}
+                    props={profile}
+                    myProfile={otherProfile}
                 >
                 </HeaderProfile>
                 {listPost.map((item) => (

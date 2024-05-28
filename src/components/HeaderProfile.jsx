@@ -4,7 +4,7 @@ import AvatarModal from './AvatarModal';
 import BackgroundModal from './BackgroundModal';
 import Follower from './Follower'
 
-const HeaderProfile = ({ props, myProfile }) => {
+const HeaderProfile = ({ user_id,isCurrentUser,props, myProfile }) => {
 
 
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
@@ -37,7 +37,10 @@ const HeaderProfile = ({ props, myProfile }) => {
     };
 
     return (
-        <div className=''>
+        <>
+        {console.log("Props", props)}
+        {console.log("IsCurrentUser: ", isCurrentUser)}
+            <div className=''>
             <div className='w-[60rem] h-[31rem]'>
                 <button
                     onClick={openBackgroundUpdate}
@@ -64,12 +67,12 @@ const HeaderProfile = ({ props, myProfile }) => {
                     </button>
                     <div>
                         <p className='text-2xl font-bold text-gray-600'>{props.fullname}</p>
-                        <Follower user_id = {props.user_id} isCurrentUser = {props.isCurrentUser}></Follower>
+                        <Follower user_id = {user_id} isCurrentUser = {isCurrentUser}></Follower>
                         {/* {console.log("Prop: ",props)}
                         <p className='text-sx font-medium text-gray-400'>{props.total_followee} follower</p> */}
                     </div>
                 </div>
-                {   props.isCurrentUser &&
+                {   isCurrentUser &&
                     <button
                     className='p-3 font-medium flex items-center gap-2 rounded-md text-white bg-rose-700'
                     onClick={openModalUpdate}
@@ -84,6 +87,7 @@ const HeaderProfile = ({ props, myProfile }) => {
                 {isOpenUpdate && <UpdateUserModal closeModal={closeModalUpdate} props={props} fetchUserProfile={fetchProfile} />}
             </div>
         </div>
+        </>
     )
 }
 

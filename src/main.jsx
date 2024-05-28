@@ -15,8 +15,6 @@ import NotFound from './pages/NotFound.jsx';
 import UsersResult from './pages/UsersResult.jsx';
 import DinerCreateForm from './pages/DinerCreateForm.jsx';
 
-import { navLink } from './constant/navLink.jsx'
-
 import './index.css'
 import OtherProfile from './pages/OtherProfile.jsx';
 
