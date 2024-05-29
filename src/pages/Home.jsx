@@ -21,7 +21,7 @@ const Home = (props) => {
 
   const fetchPost = async () => {
     let res = await fetchData();
-    console.log("Res", res);
+    // console.log("Res", res);
     if (res.status === 200) {
       setListPost(res.data.data)
     }

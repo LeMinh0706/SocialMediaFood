@@ -6,6 +6,7 @@ import Post from '../components/Post'
 import { fetchUserMe, fetchUserPost } from '../Services/AxiosUser'
 import CreatePost from '../components/CreatePost'
 import HeaderProfile from '../components/HeaderProfile'
+import { useParams } from 'react-router-dom'
 
 const UserProfile = () => {
 
@@ -25,7 +26,7 @@ const UserProfile = () => {
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
     // console.log("Your profile: ", profile);
-    console.log("List post: ", listPost);
+    // console.log("List post: ", listPost);
 
     useEffect(() => {
         fetchPost();
@@ -58,10 +59,15 @@ const UserProfile = () => {
     return (
         <>
             <div className='flex items-center flex-col gap-5'>
-                <HeaderProfile url_background_profile={profile.url_background_profile}
+                <HeaderProfile
+                    user_id = {userId} 
+                    url_background_profile={profile.url_background_profile}
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
-                    total_followee={profile.total_followee}
+                    // total_followee={profile.total_followee}
+                    isCurrentUser = {true}
+                    props={profile}
+                    myProfile={myProfile}
                 ></HeaderProfile>
                 <CreatePost
                     fetchPost={fetchPost}

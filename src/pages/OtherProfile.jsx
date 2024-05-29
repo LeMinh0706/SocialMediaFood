@@ -1,36 +1,25 @@
-import { useEffect, useState } from "react";
-import { fetchUserMe, fetchUserPost, updateAvatar, updateBackground } from "../Services/AxiosUser";
 import { useSelector } from "react-redux";
-import LoginForm from "../components/LoginForm"
-import BackgroundModal from "../components/BackgroundModal";
-import AvatarModal from "../components/AvatarModal";
-import UpdateUserModal from "../components/UpdateUserModal";
+import { useParams } from "react-router-dom";
+import { fetchUser, fetchUserPost } from "../Services/AxiosUser";
 import HeaderProfile from "../components/HeaderProfile";
-import CreatePost from "../components/CreatePost";
+import { useEffect, useState } from "react";
 import Post from "../components/Post";
 
+const OtherProfile = () => {
 
+    let isLoad = false;
 
-const Test = () => {
-
-    const [profile, setProfile] = useState({})
-    const [listPost, setListPost] = useState([])
-
-
+    let { id } = useParams()
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
-    // console.log("Your profile: ", profile);
-    // console.log("List post: ", listPost);
 
-    useEffect(() => {
-        fetchPost();
-        myProfile();
-    }, []);
+    
+    const [profile, setProfile] = useState({});
+    const [listPost, setListPost] = useState([])
 
-    const myProfile = async () => {
+    const otherProfile = async () => {
         try {
-            let res = await fetchUserMe(token)
-            // console.log("My profile: ", res);
+            let res = await fetchUser(userId,parseInt(id))
             if (res && res.statusCode === 200) {
                 setProfile(res.profile)
             }
@@ -41,7 +30,7 @@ const Test = () => {
 
     const fetchPost = async () => {
         try {
-            let res = await fetchUserPost(userId, token);
+            let res = await fetchUserPost(parseInt(id), token);
             // console.log("res: ", res);
             if (res && res.statusCode === 200) {
                 setListPost(res.data)
@@ -50,19 +39,25 @@ const Test = () => {
             console.error(error.message);
         }
     };
+
+    useEffect(() => {
+        otherProfile();
+        fetchPost();
+    }, [id]);
+    
     return (
         <>
             <div className='flex items-center flex-col gap-5'>
-                <HeaderProfile url_background_profile={profile.url_background_profile}
+                <HeaderProfile 
+                    user_id={parseInt(id)}
+                    url_background_profile={profile.url_background_profile}
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
-                    total_followee={profile.total_followee}
+                    isCurrentUser = {false}
                     props={profile}
-                    myProfile={myProfile}
-                ></HeaderProfile>
-                <CreatePost
-                    fetchPost={fetchPost}
-                ></CreatePost>
+                    myProfile={otherProfile}
+                >
+                </HeaderProfile>
                 {listPost.map((item) => (
                     <Post
                         key={item.post_id}
@@ -83,10 +78,10 @@ const Test = () => {
                         ))}
                         fetchPost={fetchPost}
                     />
-                ))}
+                ))} 
             </div>
         </>
-    )
+    );
 }
 
-export default Test
+export default OtherProfile
