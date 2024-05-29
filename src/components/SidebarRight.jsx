@@ -33,7 +33,7 @@ const SidebarRight = () => {
     // console.log(username, "-Sidebar-", avatar);
 
     return (
-        <div className='flex flex-col items-center fixed right-16 top-64 rounded-xl h-[26rem] w-[18rem] bg-white border-2 shadow-lg text-gray-400 p-4'>
+        <div className='z-50 flex flex-col items-center fixed right-16 top-64 rounded-xl h-[26rem] w-[18rem] bg-white border-2 shadow-lg text-gray-400 p-4'>
             <div className='w-full h-[4rem]'>
                 <img className='w-full h-[8rem] object-cover' src={profile.url_background_profile} alt="" />
             </div>
