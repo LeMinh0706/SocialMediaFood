@@ -64,8 +64,8 @@ const removePost = async (postid, userId, token) => {
   }
 };
 
-const fetchData = async () => {
-  return axios.get("post/view-posts?pageSize=20&page=1");
+const fetchData = async (page) => {
+  return axios.get(`post/view-posts?pageSize=10&page=${page}`);
 };
 
 const createReactPost = async (post_id, token, user_id) => {
