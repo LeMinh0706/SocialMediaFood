@@ -36,6 +36,7 @@ const RegisterForm = () => {
 
     return (
         <form className='mt-10 flex flex-col items-center gap-5' onSubmit={handleSubmit}>
+              <p className="text-lg font-semibold border-b-2 border-black">Register</p>
             <div className='w-1/4'>
                 <label className='text-start block' htmlFor='emailRe'>
                     Email:

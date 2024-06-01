@@ -8,6 +8,7 @@ const INITIAL_STATE = {
     avatar: "",
     userId: 0,
     background: "",
+    roleId:0  ,  
   },
   isAuthenticated: false,
 };
@@ -22,6 +23,7 @@ const userReducer = (state = INITIAL_STATE, action) =>{
                 username: action.payload.data.fullname,
                 avatar: action.payload.data.url_avatar,
                 background: action.payload.data.url_background_profile,
+                roleId: action.payload.data.role_id,
             },
             isAuthenticated: true,
           }
