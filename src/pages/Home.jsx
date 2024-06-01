@@ -33,10 +33,10 @@ const Home = (props) => {
   };
   // console.log("Account:", account.username, "authenthicated:", isAuthenticated);
   return (
-    <div className="pt-24 flex items-center flex-col gap-5">
-      <InfiniteScroll
+
+      <InfiniteScroll 
         loader={<p>loading...</p>}
-        className="w-[800px] mx-auto my-10"
+        className="pt-24 flex items-center flex-col gap-5"
         fetchMore={() => setPage((prev) => prev + 1)}
         hasMore={listPost.length < totalRows}
         endMessage={<p>You have seen it all</p>}
@@ -68,7 +68,6 @@ const Home = (props) => {
           />
         ))}
       </InfiniteScroll>
-    </div>
   );
 };
 
