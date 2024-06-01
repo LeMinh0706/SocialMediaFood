@@ -63,7 +63,7 @@ const Search = () => {
                     </button>
 
                 }
-                <input id='search' onKeyUp={handleKeyUp} onChange={handleSearch} className='p-3 focus:outline-none border-l rounded-md text-center w-[48rem]' type="text" placeholder='Tìm kiếm' />
+                <input id='search' onKeyUp={handleKeyUp} onChange={handleSearch} className='p-3 focus:outline-none border-l rounded-md text-center w-[40rem]' type="text" placeholder='Tìm kiếm' />
             </label>
         </div>
     )
