@@ -3,7 +3,8 @@ import { navLink } from '../constant/navLink'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Search from './Search'
-import Notification from './Notification'
+import NotiBell from './NotiBell'
+
 // import { Logo } from '../assets/Logo.svg'
 
 const Navbar = () => {
@@ -33,7 +34,7 @@ const Navbar = () => {
                         :
                         <div className='flex items-center gap-10 w-[400px] justify-end'>
                             <li>
-                                <Notification></Notification>
+                                <NotiBell></NotiBell>
                             </li>
                             <li>
                                 <Link to='test'>Test</Link>
