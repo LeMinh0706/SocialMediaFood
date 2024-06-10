@@ -165,6 +165,28 @@ const createCommentsUser = async (
     throw new Error("data err?  " + error.message);
   }
 };
+
+const reportPost = async(post_id, issue_id, user_id, token) => {
+  try {
+    const response = await axios.post(
+      "http://foodsocial.camenryder.xyz/post/report-post",
+      {
+        post_id: post_id,
+        issue_id: issue_id,
+        user_id: user_id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Error:  " + error.message);
+  }
+}
+
 export {
   createPost,
   updatePost,
@@ -175,4 +197,5 @@ export {
   deleteCommentsUser,
   createReactPost,
   removeReactPost,
+  reportPost
 };
