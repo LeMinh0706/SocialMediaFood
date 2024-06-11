@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { removePost } from '../Services/AxiosPost';
+import { fetchReportData, removePost } from '../Services/AxiosPost';
 import { toast } from 'react-toastify';
 import ModalUpdate from './ModalUpdate';
 import ModalReport from './ModalReport';
@@ -12,6 +12,7 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
     token = useSelector(state => state.user.account.accessToken)
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
     const [isOpenReport, setIsOpenReport] = useState(false)
+    const [tickedList, setTickedList] = useState(null)
 
 
     const openModalUpdate = () => {
@@ -22,8 +23,12 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         setIsOpenUpdate(false);
     };
 
-    const openModalReport = () => {
-        setIsOpenReport(true)
+    const openModalReport = async() => {
+        if(tickedList==null)
+        {
+            InitTikedList(idpost, id);
+        }
+        setIsOpenReport(true);
     };
 
     const closeModalReport = () => {
@@ -34,8 +39,21 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         setIsOpen(!isOpen);
     };
 
+    useEffect(()=>{},[tickedList])
+
+
     const fetchlist = async () => {
         await fetchPost()
+    }
+
+    const InitTikedList = async(post_id, user_id) => {
+        try {
+            const res = await fetchReportData(post_id, user_id);
+            if(res && res.status == 200)
+                setTickedList(res.data)
+        } catch (error) {
+            
+        }   
     }
 
     const handleRemove = async () => {
@@ -65,9 +83,14 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
                 <div className=" absolute mt-1 w-36 rounded-md border shadow-lg bg-white">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                            onClick={openModalReport}
+                            onClick={async()=>openModalReport()}
                         >Báo cáo bài viết</button>
-                        {isOpenReport && <ModalReport closeModal={closeModalReport} postId={idpost} userId={id} token={token}/>}
+                        {(isOpenReport&& tickedList!=null) && <ModalReport closeModal={closeModalReport}
+                                                    postId={idpost} 
+                                                    userId={id}
+                                                    tickedList={tickedList.data.ticked}
+                                                    InitTikedList={InitTikedList}
+                                                    token={token}/>}
                         {iduser === id ?
                             <>
                                 <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

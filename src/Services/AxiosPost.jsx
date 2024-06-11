@@ -187,6 +187,10 @@ const reportPost = async(post_id, issue_id, user_id, token) => {
   }
 }
 
+const fetchReportData = async(post_id, user_id) => {
+  return axios.get(`Issue-report/get-issues-post?post_id=${post_id}&&user_id=${user_id}`);
+};
+
 export {
   createPost,
   updatePost,
@@ -197,5 +201,6 @@ export {
   deleteCommentsUser,
   createReactPost,
   removeReactPost,
-  reportPost
+  reportPost,
+  fetchReportData
 };

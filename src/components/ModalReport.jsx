@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { reportPost } from '../Services/AxiosPost';
 
-const ModalReport = ({closeModal, postId, userId, token}) => {
+const ModalReport = ({closeModal, postId, userId, tickedList, InitTikedList,token}) => {
 
     const [issueList, setIssueList] = useState([])
 
@@ -25,7 +25,6 @@ const ModalReport = ({closeModal, postId, userId, token}) => {
     }
 
     useEffect(()=>{
-        console.log("List of issue: ",issueList)
     },[issueList])
 
     const handleReportSubmit = async() => {
@@ -41,6 +40,7 @@ const ModalReport = ({closeModal, postId, userId, token}) => {
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            {console.log("List of ticked issue: ",tickedList)}
             <div className="bg-white p-6 rounded shadow-lg w-96 flex flex-col gap-5">
                 <h2>Vi phạm</h2>
                 <div class="flex items-center mb-4">
