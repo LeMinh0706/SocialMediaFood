@@ -34,7 +34,7 @@ function LoginForm() {
       dispatch(doLogin(res.data));
       toast.success(res.data.message);
       console.log("Abc 123 ========> <==========");
-      res.data.data.role_id == 2 ? navigate("/admin") : navigate("/");
+      res.data.data.role_id === 2 ? navigate("/admin") : navigate("/");
     } else {
       toast.error("Sai tài khoản hoặc mật khẩu!");
     }

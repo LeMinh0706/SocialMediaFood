@@ -1,24 +1,48 @@
 import React, { useEffect, useState } from 'react'
-import { Accept, WatingList } from '../../Services/AdminService'
-import Sidebar from '../../components/Sidebar'
-import Avt from '../../components/Avt'
-import HeaderAdmin from './components/HeaderAdmin'
 import { useSelector } from 'react-redux'
-import { Navigate, Outlet } from 'react-router-dom'
-import SidebarLeft from '../../components/SidebarLeft'
+import { Reject, WatingList } from '../../Services/AdminService'
+import Avt from '../../components/Avt'
 
+const Dashboard = () => {
 
-const Admin = () => {
+    const [list, setList] = useState([])
+    useEffect(() => {
+        Waiting()
+    }, [])
 
+    const handleAccept = async (id) => {
+        try {
+            console.log("Id day:", id);
+            const res = await Accept(id);
+            console.log(res);
+            Waiting()
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    const handleReject = async (id) => {
+        try {
+            const res = await Reject(id)
+            console.log(res);
+            Waiting()
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
-    // if (role_id !== 2) return <Navigate to="/accessdenied" />
+    const Waiting = async () => {
+        try {
+            const res = await WatingList();
+            console.log(res.data.data);
+            setList(res.data.data)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
-            <HeaderAdmin />
-            <SidebarLeft></SidebarLeft>
-            <Outlet></Outlet>
-            {/* <div className='w-full flex items-center justify-center mt-10'>
+            <div className='w-full flex items-center justify-center mt-10'>
                 <table className='w-[1000px] table-fixed'>
                     <thead>
                         <tr>
@@ -52,10 +76,9 @@ const Admin = () => {
                         ))}
                     </tbody>
                 </table>
-            </div> */}
+            </div>
         </>
-
     )
 }
 
-export default Admin
+export default Dashboard
