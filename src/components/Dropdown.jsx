@@ -14,7 +14,6 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
     const [isOpenReport, setIsOpenReport] = useState(false)
     const [tickedList, setTickedList] = useState(null)
 
-
     const openModalUpdate = () => {
         setIsOpenUpdate(true);
     };
@@ -24,11 +23,14 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
     };
 
     const openModalReport = async() => {
-        if(tickedList==null)
-        {
-            InitTikedList(idpost, id);
-        }
-        setIsOpenReport(true);
+        try {
+            const res = await fetchReportData(idpost, id)
+            if(res && res.status == 200)
+                setTickedList(res.data)
+        } catch (error) {
+
+        }   
+        finally{setIsOpenReport(true)}
     };
 
     const closeModalReport = () => {
@@ -39,21 +41,9 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         setIsOpen(!isOpen);
     };
 
-    useEffect(()=>{},[tickedList])
-
 
     const fetchlist = async () => {
         await fetchPost()
-    }
-
-    const InitTikedList = async(post_id, user_id) => {
-        try {
-            const res = await fetchReportData(post_id, user_id);
-            if(res && res.status == 200)
-                setTickedList(res.data)
-        } catch (error) {
-            
-        }   
     }
 
     const handleRemove = async () => {
@@ -85,11 +75,10 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
                         <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                             onClick={async()=>openModalReport()}
                         >Báo cáo bài viết</button>
-                        {(isOpenReport&& tickedList!=null) && <ModalReport closeModal={closeModalReport}
+                        {(isOpenReport && tickedList!==null) && <ModalReport closeModal={closeModalReport}
                                                     postId={idpost} 
                                                     userId={id}
                                                     tickedList={tickedList.data.ticked}
-                                                    InitTikedList={InitTikedList}
                                                     token={token}/>}
                         {iduser === id ?
                             <>
