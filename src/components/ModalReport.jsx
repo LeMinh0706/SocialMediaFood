@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { reportPost } from '../Services/AxiosPost';
+import { toast } from 'react-toastify';
 
 const ModalReport = ({closeModal, postId, userId,tickedList, token}) => {
 
@@ -42,6 +43,7 @@ const ModalReport = ({closeModal, postId, userId,tickedList, token}) => {
             console.log(res)
             if(res && res.statusCode==200)
             {
+                toast.success("Report thành công")
                 closeModal()
             }
         } catch (error) {
