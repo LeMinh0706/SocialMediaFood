@@ -25,6 +25,7 @@ const UserProfile = () => {
 
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
+    const role = useSelector(state => state.user.account.roleId)
     // console.log("Your profile: ", profile);
     // console.log("List post: ", listPost);
 
@@ -61,11 +62,14 @@ const UserProfile = () => {
             <div className='flex items-center flex-col gap-5'>
                 <HeaderProfile
                     user_id = {userId} 
+                    token={token}
                     url_background_profile={profile.url_background_profile}
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
+                    role={role}
                     // total_followee={profile.total_followee}
                     isCurrentUser = {true}
+                    isPending={profile.is_pending}
                     props={profile}
                     myProfile={myProfile}
                 ></HeaderProfile>

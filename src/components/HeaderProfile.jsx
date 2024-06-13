@@ -3,8 +3,9 @@ import UpdateUserModal from './UpdateUserModal';
 import AvatarModal from './AvatarModal';
 import BackgroundModal from './BackgroundModal';
 import Follower from './Follower'
+import UpgradeButton from './UpgradeButton';
 
-const HeaderProfile = ({ user_id,isCurrentUser,props, myProfile }) => {
+const HeaderProfile = ({user_id, token, role, isCurrentUser, isPending, props, myProfile}) => {
 
 
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
@@ -73,10 +74,14 @@ const HeaderProfile = ({ user_id,isCurrentUser,props, myProfile }) => {
                     <div>
                         <p className='text-2xl font-bold text-gray-600'>{props.fullname}</p>
                         <Follower user_id = {user_id} isCurrentUser = {isCurrentUser}></Follower>
-                        {/* {console.log("Prop: ",props)}
-                        <p className='text-sx font-medium text-gray-400'>{props.total_followee} follower</p> */}
                     </div>
+                    {   (role === 1 && isPending>=0) &&
+                        <UpgradeButton isPending={isPending} token={token}></UpgradeButton>
+                    }
                 </div>
+
+                    
+
                 {   isCurrentUser &&
                     <button
                     className='p-3 font-medium flex items-center gap-2 rounded-md text-white bg-rose-700'
