@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Reject, WatingList } from '../../Services/AdminService'
+import { Accept, OutReject, WatingList } from '../../Services/AdminService'
 import Avt from '../../components/Avt'
 
 const Dashboard = () => {
@@ -8,6 +8,7 @@ const Dashboard = () => {
     const [list, setList] = useState([])
     useEffect(() => {
         Waiting()
+        console.log(list);
     }, [])
 
     const handleAccept = async (id) => {
@@ -22,7 +23,8 @@ const Dashboard = () => {
     }
     const handleReject = async (id) => {
         try {
-            const res = await Reject(id)
+            alert(id)
+            const res = await OutReject(id)
             console.log(res);
             Waiting()
         } catch (error) {
@@ -33,8 +35,8 @@ const Dashboard = () => {
     const Waiting = async () => {
         try {
             const res = await WatingList();
-            console.log(res.data.data);
-            setList(res.data.data)
+            console.log(res.data.data.data);
+            setList(res.data.data.data)
         } catch (error) {
             console.log(error);
         }

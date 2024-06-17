@@ -68,6 +68,16 @@ const fetchData = async (page) => {
   return axios.get(`post/view-posts?pageSize=10&page=${page}`);
 };
 
+const fetchPost = async (page, pagesize) => {
+  try {
+    const response = await axios.get(`post/view-posts?pageSize=${pagesize}&page=${page}`)
+    return response
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 const createReactPost = async (post_id, token, user_id) => {
   try {
     const response = await axios.post(
@@ -170,6 +180,7 @@ export {
   updatePost,
   removePost,
   fetchData,
+  fetchPost,
   viewCommentsUser,
   createCommentsUser,
   deleteCommentsUser,

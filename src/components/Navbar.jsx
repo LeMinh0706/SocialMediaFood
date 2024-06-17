@@ -1,18 +1,34 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { navLink } from '../constant/navLink'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Search from './Search'
 import NotiBell from './NotiBell'
+import { fetchUserMe } from '../Services/AxiosUser'
 
 // import { Logo } from '../assets/Logo.svg'
 
 const Navbar = () => {
 
     const isAuthenticated = useSelector(state => state.user.isAuthenticated)
+    const token = useSelector(state => state.user.account.accessToken)
+    console.log("Toekm", isAuthenticated);
+    const [name, setName] = useState()
+    const [avt, setAvt] = useState()
+    if (isAuthenticated) {
+        useEffect(() => {
+            fetchProfile()
+        }, [])
+        const fetchProfile = async () => {
+            const res = await fetchUserMe(token)
+            setName(res.profile.fullname)
+            setAvt(res.profile.url_avatar)
+            console.log("header: ", res, name, avt);
+        }
+    }
     // const account = useSelector(state => state.user.account)
-    const username = useSelector(state => state.user.account.username)
-    const avt = useSelector(state => state.user.account.avatar)
+    // const username = useSelector(state => state.user.account.username)
+    // const avt = useSelector(state => state.user.account.avatar)
 
     return (
         <div className='relative z-50'>
@@ -42,7 +58,7 @@ const Navbar = () => {
                             <li>
                                 <Link to='profile'>
                                     <div className='flex items-center gap-3'>
-                                        <p className='text-lg font-medium'>{username}</p>
+                                        <p className='text-lg font-medium'>{name}</p>
                                         <img className='h-10 w-10 rounded-full object-cover' src={avt} alt="" />
                                     </div>
                                 </Link>

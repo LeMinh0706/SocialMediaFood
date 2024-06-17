@@ -18,7 +18,7 @@ const SidebarLeft = () => {
 
         dispatch(userLogout());
 
-        navigate('/');
+        navigate('/login');
     };
 
     return (
@@ -30,8 +30,9 @@ const SidebarLeft = () => {
                 {role_id === 2 &&
                     <>
                         <Link to='/admin'>Upgrade list</Link>
-                        <Link to='/admin/reject'>Reject list</Link>
                         <Link to='/admin/report'>Report list</Link>
+                        <Link to='/admin/premium'>Premium list</Link>
+
                     </>
                 }
             </div>

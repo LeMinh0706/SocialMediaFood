@@ -21,7 +21,7 @@ const CreatePost = (props) => {
         setFile(event.target.files);
     };
 
-    const handleNoContent = (event) => {
+    const handleNoContent = () => {
         toast.error("Bạn chưa thêm nội dung")
     }
 
@@ -29,7 +29,9 @@ const CreatePost = (props) => {
         try {
             const data = await createPost(file, description, token, userId);
             toast.success("Đăng bài thành công!");
-            let res = await props.fetchPost();
+            // let res = await props.fetchPost();
+            window.location.reload()
+
         } catch (error) {
             console.error(error);
         }

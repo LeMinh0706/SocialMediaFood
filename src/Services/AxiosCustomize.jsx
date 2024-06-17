@@ -26,7 +26,7 @@ instance.interceptors.response.use(function (response) {
     return response;
 }, function (error) {
 
-    let res = {};
+    let res = error.request;
 
     if (error.reponse) {
         res.data = error.reponse.data;

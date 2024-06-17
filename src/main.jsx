@@ -22,7 +22,7 @@ import Admin from "./pages/admin/Admin.jsx";
 import Report from "./pages/admin/Report.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import PrivateRoute from "./pages/admin/PrivateRoute.jsx";
-import Reject from "./pages/admin/Reject.jsx";
+import PremiumList from "./pages/admin/PremiumList.jsx";
 
 
 const queryClient = new QueryClient();
@@ -51,8 +51,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                   <Admin />
                 </PrivateRoute>}>
                 <Route index element={<Dashboard />} />
-                <Route path="reject" element={<Reject />} />
+
                 <Route path="report" element={<Report />} />
+                <Route path="premium" element={<PremiumList />} />
               </Route>
             </Routes>
           </BrowserRouter>

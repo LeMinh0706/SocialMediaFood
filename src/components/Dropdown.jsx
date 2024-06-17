@@ -31,9 +31,15 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         try {
             alert(iduser + 'UserId - IdPost' + idpost)
             let data = await removePost(idpost, iduser, token);
-            await fetchPost()
-            toast.success("Xóa thành công");
-            console.log(data);
+            if (!data) {
+                console.log("Kiểm tra đường truyền mạng");
+                toast.error("Kiểm tra đường truyền mạng")
+            }
+            else {
+                await fetchPost()
+                toast.success("Xóa thành công");
+                console.log(data);
+            }
         } catch (error) {
             console.error(error);
         }
