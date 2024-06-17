@@ -29,12 +29,13 @@ function LoginForm() {
   const handleLogin = async () => {
     let res = await postLogin(email, password);
     console.log("Check res: ", res);
+    console.log("status:", res.status);
 
     if (res && res.status === 201) {
       dispatch(doLogin(res.data));
+      console.log(res.data.message);
       toast.success(res.data.message);
-      console.log("Abc 123 ========> <==========");
-      res.data.data.role_id == 2 ? navigate("/admin") : navigate("/");
+      res.data.data.role_id === 2 ? navigate("/admin") : navigate("/");
     } else {
       toast.error("Sai tài khoản hoặc mật khẩu!");
     }

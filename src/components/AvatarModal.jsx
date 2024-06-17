@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState } from "react";
 import { updateAvatar } from "../Services/AxiosUser";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const AvatarModal = ({ closeModal, fetchProfile }) => {
     const userId = useSelector(state => state.user.account.userId)
     const token = useSelector(state => state.user.account.accessToken)
     const [file, setFile] = useState([])
-
+    const dispatch = useDispatch()
     console.log(file);
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -16,10 +16,10 @@ const AvatarModal = ({ closeModal, fetchProfile }) => {
         e.preventDefault();
         try {
             let res = await updateAvatar(token, userId, file)
-            console.log("Check res: ", res);
+            console.log("Check res: ", res.data.data.url_avatar);
+            // await fetchProfile();
+            window.location.reload()
             closeModal()
-            await fetchProfile();
-
         } catch (error) {
             console.log(error);
         }
