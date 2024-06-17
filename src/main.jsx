@@ -13,12 +13,15 @@ import UserProfile from "./pages/UserProfile.jsx";
 import Test from "./pages/Test.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import UsersResult from "./pages/UsersResult.jsx";
-import DinerCreateForm from "./pages/DinerCreateForm.jsx";
+
 
 import "./index.css";
 import OtherProfile from "./pages/OtherProfile.jsx";
 import { Admin } from "./pages/admin/Admin.jsx";
 import { AccessDenied } from "./pages/admin/Access-denied.jsx";
+import Restaurant from "./pages/Restaurant.jsx";
+import CreateRestaurant from "./pages/CreateRestaurant.jsx";
+import EditRestaurant from "./pages/EditRestaurant.jsx";
 
 const queryClient = new QueryClient();
 
@@ -33,13 +36,15 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/access-denied" element={<AccessDenied/> } />
               <Route path="/login" element={<LoginRegister />} />
               <Route path="/" element={<App />}>
-                <Route index element={<Home />} />
-                <Route path="profile" element={<UserProfile />} />
-                <Route path="test" element={<Test />} />
-                <Route path="*" element={<NotFound />} />
-                <Route exact path="search-result" element={<UsersResult />} />
-                <Route exact path="profile/:id" element={<OtherProfile />} />
-                <Route path="create-diner-post" element={<DinerCreateForm />} />
+                  <Route index element={<Home />} />
+                  <Route path="profile" element={<UserProfile />} />
+                  <Route path="test" element={<Test />} />
+                  <Route path="*" element={<NotFound />} />
+                  <Route exact path="search-result" element={<UsersResult />} />
+                  <Route exact path="profile/:id" element={<OtherProfile />} />
+                  <Route path="restaurant" element={<Restaurant />}/>
+                  <Route path="restaurant/create" element={<CreateRestaurant/>}/>
+                  <Route path="restaurant/edit" element={<EditRestaurant/>}/>
               </Route>
               <Route path="/admin" element={<Admin />}/>
             </Routes>

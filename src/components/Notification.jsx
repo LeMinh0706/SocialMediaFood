@@ -28,7 +28,17 @@ const Notification = ({noti, unseenChange, token}) => {
 
     return (
         <div className='flex items-center gap-7 border-[1px] border-gray-600 cursor-pointer' onClick={async() => handleNotiClick()}>
-            <p className='w-3/4 ml-2'>{noti.description}</p>
+            <div className='flex flex-col w-3/4 ml-2'>
+                <span className="text-xs font-lg text-gray-600">
+                {new Date(Number(noti.date))
+                    .toLocaleString("en-US", {
+                    timeZone: "Asia/Ho_Chi_Minh",
+                    hour12: false,
+                    })
+                    .replace(/ GMT.*$/, "")}
+                </span>
+                <p>{noti.description}</p>
+            </div>
             {
                 !isSeen &&
                 <div className=' w-[7px] h-[7px] rounded bg-red-600'></div>

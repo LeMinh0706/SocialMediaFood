@@ -20,6 +20,7 @@ const UpgradeButton = ({isPending, token}) => {
     const handleUpgrade = async() => {
         try {
             const res = await upgradeAccount(token)
+            console.log(res)
             if(res && res.status == 201)
                 changeButtonStyle()
         } catch (error) {

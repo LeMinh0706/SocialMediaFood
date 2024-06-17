@@ -66,7 +66,7 @@ const UserProfile = () => {
                     url_background_profile={profile.url_background_profile}
                     url_avatar={profile.url_avatar}
                     fullname={profile.fullname}
-                    role={role}
+                    role={profile.role_id}
                     // total_followee={profile.total_followee}
                     isCurrentUser = {true}
                     isPending={profile.is_pending}
