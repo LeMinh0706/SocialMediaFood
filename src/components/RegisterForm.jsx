@@ -23,13 +23,14 @@ const RegisterForm = ({ backLogin }) => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Username: ', fullname);
+        // console.log('Email:', email);
+        // console.log('Password:', password);
+        // console.log('Username: ', fullname);
     };
     const handleRegister = async () => {
         let res = await postRegister(email, password, fullname)
         console.log("Check res: ", res);
+        // if()
         toast.success("Đăng ký thành công!")
         backLogin()
     }
