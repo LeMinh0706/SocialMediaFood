@@ -69,7 +69,6 @@ const Follower = (props) => {
 
     return(
         <>
-        {console.log(following)}
         {   isFollowed != null &&
            
             <div className='flex items-center gap-5'>

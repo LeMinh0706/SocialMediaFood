@@ -98,7 +98,6 @@ const NotiBell = () => {
           </svg>
         </button>
       </div>
-        {console.log("Noti list: ",notiList)}
         { isOpenNoti &&
           <ModalNotification  notiList={notiList}
                               user_id={user_id}

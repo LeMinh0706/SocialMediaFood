@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { removePost } from '../Services/AxiosPost';
+import { fetchReportData, removePost } from '../Services/AxiosPost';
 import { toast } from 'react-toastify';
 import ModalUpdate from './ModalUpdate';
+import ModalReport from './ModalReport';
+
 
 const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
     const [isOpen, setIsOpen] = useState(false);
     const id = useSelector(state => state.user.account.userId)
     token = useSelector(state => state.user.account.accessToken)
     const [isOpenUpdate, setIsOpenUpdate] = useState(false);
-
+    const [isOpenReport, setIsOpenReport] = useState(false)
+    const [tickedList, setTickedList] = useState(null)
 
     const openModalUpdate = () => {
         setIsOpenUpdate(true);
@@ -19,9 +22,25 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         setIsOpenUpdate(false);
     };
 
+    const openModalReport = async() => {
+        try {
+            const res = await fetchReportData(idpost, id)
+            if(res && res.status == 200)
+                setTickedList(res.data)
+        } catch (error) {
+
+        }   
+        finally{setIsOpenReport(true)}
+    };
+
+    const closeModalReport = () => {
+        setIsOpenReport(false)
+    };
+
     const toggleDropdown = async () => {
         setIsOpen(!isOpen);
     };
+
 
     const fetchlist = async () => {
         await fetchPost()
@@ -31,9 +50,15 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
         try {
             alert(iduser + 'UserId - IdPost' + idpost)
             let data = await removePost(idpost, iduser, token);
-            await fetchPost()
-            toast.success("Xóa thành công");
-            console.log(data);
+            if (!data) {
+                console.log("Kiểm tra đường truyền mạng");
+                toast.error("Kiểm tra đường truyền mạng")
+            }
+            else {
+                await fetchPost()
+                toast.success("Xóa thành công");
+                console.log(data);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -54,7 +79,13 @@ const Dropdown = ({ iduser, idpost, token, postDetail, props, fetchPost }) => {
                 <div className=" absolute mt-1 w-36 rounded-md border shadow-lg bg-white">
                     <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                         <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            onClick={async()=>openModalReport()}
                         >Báo cáo bài viết</button>
+                        {(isOpenReport && tickedList!==null) && <ModalReport closeModal={closeModalReport}
+                                                    postId={idpost} 
+                                                    userId={id}
+                                                    tickedList={tickedList.data.ticked}
+                                                    token={token}/>}
                         {iduser === id ?
                             <>
                                 <button className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

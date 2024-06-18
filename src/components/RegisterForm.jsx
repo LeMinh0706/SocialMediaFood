@@ -4,7 +4,7 @@ import { postRegister } from '../Services/AuthService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const RegisterForm = () => {
+const RegisterForm = ({ backLogin }) => {
 
     const [email, setEmail] = useState('');
     const [fullname, setFullname] = useState('');
@@ -23,20 +23,22 @@ const RegisterForm = () => {
     };
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Username: ', fullname);
+        // console.log('Email:', email);
+        // console.log('Password:', password);
+        // console.log('Username: ', fullname);
     };
     const handleRegister = async () => {
         let res = await postRegister(email, password, fullname)
         console.log("Check res: ", res);
+        // if()
         toast.success("Đăng ký thành công!")
+        backLogin()
     }
 
 
     return (
         <form className='mt-10 flex flex-col items-center gap-5' onSubmit={handleSubmit}>
-              <p className="text-lg font-semibold border-b-2 border-black">Register</p>
+            <p className="text-lg font-semibold border-b-2 border-black">Register</p>
             <div className='w-1/4'>
                 <label className='text-start block' htmlFor='emailRe'>
                     Email:

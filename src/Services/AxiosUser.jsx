@@ -106,5 +106,18 @@ const updateProfile = async (token, userId, fullname, country, language, gender)
     }
 }
 
+const upgradeAccount = async(token) => {
+    try {
+        const response = await axios.post('user/upgrade-account',{},{
+            headers:{
+                "Authorization": `Bearer ${token}`
+            }
+        })
+        return response
+    } catch (error) {
+        throw new Error("Can't not upgrade your account: ", error.message)
+    }
+}
 
-export { fetchUserPost, fetchUserMe, fetchUserSearch, updateBackground, updateAvatar, updateProfile , fetchUser}
+
+export { fetchUserPost, fetchUserMe, fetchUserSearch, updateBackground, updateAvatar, updateProfile , fetchUser, upgradeAccount}

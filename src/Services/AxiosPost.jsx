@@ -68,6 +68,16 @@ const fetchData = async (page) => {
   return axios.get(`post/view-posts?pageSize=10&page=${page}`);
 };
 
+const fetchPost = async (page, pagesize) => {
+  try {
+    const response = await axios.get(`post/view-posts?pageSize=${pagesize}&page=${page}`)
+    return response
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
 const createReactPost = async (post_id, token, user_id) => {
   try {
     const response = await axios.post(
@@ -165,14 +175,43 @@ const createCommentsUser = async (
     throw new Error("data err?  " + error.message);
   }
 };
+
+const reportPost = async(post_id, issue_id, user_id, token) => {
+  try {
+    const response = await axios.post(
+      "http://foodsocial.camenryder.xyz/post/report-post",
+      {
+        post_id: post_id,
+        issue_id: issue_id,
+        user_id: user_id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error("Error:  " + error.message);
+  }
+}
+
+const fetchReportData = async(post_id, user_id) => {
+  return axios.get(`Issue-report/get-issues-post?post_id=${post_id}&&user_id=${user_id}`);
+};
+
 export {
   createPost,
   updatePost,
   removePost,
   fetchData,
+  fetchPost,
   viewCommentsUser,
   createCommentsUser,
   deleteCommentsUser,
   createReactPost,
   removeReactPost,
+  reportPost,
+  fetchReportData
 };
