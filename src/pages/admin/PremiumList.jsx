@@ -6,7 +6,7 @@ const PremiumList = () => {
 
     const [list, setList] = useState([])
     const [page, setPage] = useState(1)
-    const [pagesize, setPagesize] = useState(4)
+    const [pagesize, setPagesize] = useState(20)
 
 
     useEffect(() => {

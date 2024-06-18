@@ -107,6 +107,7 @@ const Post = ({
       user_id
     );
     if (data.statusCode == 200) {
+      console.log("alooo") 
       const data = await viewCommentsUser(post_id, 1, accessToken);
       setListComment(data["data"]["data"]);
       setComments(data["data"]["data"].length);
