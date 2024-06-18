@@ -36,7 +36,11 @@ function LoginForm() {
       console.log(res.data.message);
       toast.success(res.data.message);
       res.data.data.role_id === 2 ? navigate("/admin") : navigate("/");
-    } else {
+    }
+    else if (res.status === 0) {
+      toast.error("Kiểm tra đường truyền")
+    }
+    else {
       toast.error("Sai tài khoản hoặc mật khẩu!");
     }
   };
