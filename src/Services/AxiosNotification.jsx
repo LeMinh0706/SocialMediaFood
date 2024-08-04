@@ -3,7 +3,7 @@ import React from 'react'
 
 const getAllNotification = async(user_id, token) => {
   try {
-    const response = await axios.get(`http://foodsocial.camenryder.xyz/notification/get-all-notification/${user_id}`, {
+    const response = await axios.get(`http://localhost/notification/get-all-notification/${user_id}`, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
@@ -16,7 +16,7 @@ const getAllNotification = async(user_id, token) => {
 
 const updateNotiIsSeen = async(noti_id, token) => {
   try {
-    const response = await axios.post(`http://foodsocial.camenryder.xyz/notification/read-notification/${noti_id}`,{},{
+    const response = await axios.post(`http://localhost/notification/read-notification/${noti_id}`,{},{
       headers: {
         "Authorization": `Bearer ${token}`
     }
@@ -30,7 +30,7 @@ const updateNotiIsSeen = async(noti_id, token) => {
 
 const updateAllNotiIsSeen = async(user_id, token) => {
   try {
-    const response = await axios.post(`http://foodsocial.camenryder.xyz/notification/read-all-notification/${user_id}`,{},{
+    const response = await axios.post(`http://localhost/notification/read-all-notification/${user_id}`,{},{
       headers: {
         "Authorization": `Bearer ${token}`
     }

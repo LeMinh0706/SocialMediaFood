@@ -179,7 +179,7 @@ const createCommentsUser = async (
 const reportPost = async(post_id, issue_id, user_id, token) => {
   try {
     const response = await axios.post(
-      "http://foodsocial.camenryder.xyz/post/report-post",
+      "http://localhost/post/report-post",
       {
         post_id: post_id,
         issue_id: issue_id,
